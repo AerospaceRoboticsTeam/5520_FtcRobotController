@@ -1,8 +1,11 @@
-package org.firstinspires.ftc.teamcode.Libs.AR;
 
-import com.arcrobotics.ftclib.controller.PIDController;
+package org.firstinspires.ftc.teamcode.Libs.AR.Archive;
+
+//import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.teamcode.Libs.AR.AR_Arm_Fisher;
 
 /**
  * This class creates a PID Controller to use with each joint.
@@ -11,6 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *
  * Creation Date: 11/3/2024
  */
+/*
 public class AR_PIDController
 {
     private PIDController controller;
@@ -24,9 +28,6 @@ public class AR_PIDController
     public boolean fuzzyLogicActive = false;
     private double previousError = 0;  // Store the previous error for calculating error rate
 
-    /**
-     * Constructor. Perform the setup of the PID Controller.
-     */
     public AR_PIDController(LinearOpMode iBot, DcMotor iMotor, String iJointName, double iP, double iI, double iD, double iF, boolean activateFuzzyLogic) {
         this.bot = iBot;
         this.motor = iMotor;
@@ -56,9 +57,7 @@ public class AR_PIDController
         }
     }
 
-    /**
-     * This function takes a target value and moves the joint to that position.
-     */
+     //This function takes a target value and moves the joint to that position.
     public void setJointContinuous(boolean direction){
         if (direction){
             this.motor.setPower(1);}
@@ -107,5 +106,7 @@ public class AR_PIDController
         }
         loopCount = loopCount + 1;
  */
+/*
     }
 }
+ */

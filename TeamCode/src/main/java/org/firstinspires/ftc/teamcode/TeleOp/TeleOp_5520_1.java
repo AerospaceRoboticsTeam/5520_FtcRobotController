@@ -2,18 +2,13 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.TouchSensor;
-
-import android.util.Log;
 
 import org.firstinspires.ftc.teamcode.Libs.AR.AR_Arm_Fisher;
 import org.firstinspires.ftc.teamcode.Libs.AR.MecanumDrive_5518;
 
 @TeleOp(name = "TeleOp_5518_IK", group = "TeleOp")
-public class TeleOp_5518_IK extends LinearOpMode
+public class TeleOp_5520_1 extends LinearOpMode
 {
     private MecanumDrive_5518 mecanumDrive;
     private AR_Arm_Fisher arm;
@@ -44,42 +39,6 @@ public class TeleOp_5518_IK extends LinearOpMode
             else {
                 mecanumDrive.setBoost(0.5);
             }
-
-            if (gamepad2.dpad_up) {
-                arm.setArmDeployPos();
-                telemetry.addData("Arm Status", "Set Arm Deploy");
-            }
-            else if (gamepad2.dpad_right) {
-                arm.setArmActivePos();
-                telemetry.addData("Arm Status", "Set Arm Active");
-            }
-            else if (gamepad2.dpad_left) {
-                arm.setArmStartPos();
-                telemetry.addData("Arm Status", "Set Arm Start");
-            }
-            else if (gamepad2.dpad_down) {
-                arm.setArmGrabPos();
-                telemetry.addData("Arm Status", "Set Arm Grab");
-            }
-            else if (gamepad2.square) {
-                arm.setArmMidPos();
-                telemetry.addData("Arm Status", "Set Arm Mid");
-            }
-            else if (gamepad2.triangle){
-                arm.setArmHookPos();
-                telemetry.addData("Arm Status", "Set Arm Hook");
-            }
-            arm.updateArmPos();
-
-            if (gamepad2.left_trigger > 0.1) {
-                arm.grab();
-            } else if (gamepad2.right_trigger > 0.1){
-                arm.drop();
-            }
-            else{
-                arm.rest();
-            }
-
             if (touch.getValue() == 1){
                 arm.turnGreen();
             }
