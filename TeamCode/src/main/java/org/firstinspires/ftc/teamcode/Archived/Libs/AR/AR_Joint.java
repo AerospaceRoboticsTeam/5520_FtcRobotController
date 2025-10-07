@@ -1,9 +1,8 @@
-package org.firstinspires.ftc.teamcode.Libs.AR;
+package org.firstinspires.ftc.teamcode.Archived.Libs.AR;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
-import org.firstinspires.ftc.teamcode.Libs.AR.Archive.AR_PIDController;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 /**
  * This class create a AR_Joint object that is used to encapsulate all the code used to control and

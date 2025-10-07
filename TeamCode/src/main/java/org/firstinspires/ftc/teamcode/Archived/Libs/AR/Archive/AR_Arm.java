@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.Libs.AR.Archive;
+package org.firstinspires.ftc.teamcode.Archived.Libs.AR.Archive;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 
-import org.firstinspires.ftc.teamcode.Libs.AR.AR_Joint;
+import org.firstinspires.ftc.teamcode.Archived.Libs.AR.AR_Joint;
 
 /**
  * This class create an AR_Arm object that is used to encapsulate all the code used to control and use

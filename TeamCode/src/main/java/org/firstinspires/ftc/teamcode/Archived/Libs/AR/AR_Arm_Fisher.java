@@ -1,5 +1,4 @@
-//AR_Arm_Fisher.javapackage org.firstinspires.ftc.teamcode.Libs.AR;
-package org.firstinspires.ftc.teamcode.Libs.AR;
+package org.firstinspires.ftc.teamcode.Archived.Libs.AR;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -7,9 +6,9 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
-import org.firstinspires.ftc.teamcode.Libs.AR.AR_Joint;
-import org.firstinspires.ftc.teamcode.Libs.AR.Archive.AR_Arm;
-import org.firstinspires.ftc.teamcode.TeleOp.Test.AR_Arm_Fisher_Test;
+import org.firstinspires.ftc.teamcode.Archived.Libs.AR.AR_Joint;
+import org.firstinspires.ftc.teamcode.Archived.Libs.AR.Archive.AR_Arm;
+import org.firstinspires.ftc.teamcode.Archived.TeleOp.Test.AR_Arm_Fisher_Test;
 
 /**
  * This class create an AR_Arm object that is used to encapsulate all the code used to control and use

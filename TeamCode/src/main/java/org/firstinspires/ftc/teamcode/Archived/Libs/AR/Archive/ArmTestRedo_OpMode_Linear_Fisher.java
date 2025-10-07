@@ -1,8 +1,12 @@
-package org.firstinspires.ftc.teamcode.Libs.AR.Archive;
+package org.firstinspires.ftc.teamcode.Archived.Libs.AR.Archive;
+
+//import android.util.Log;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Archived.Libs.AR.AR_Arm_Fisher;
 
 /*--------------------------------------------------------------------------------------------------
  * This is an example OpMode created to show how the AR_Arm Class works, designed for the 2024-2025
@@ -11,8 +15,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Creation Date: 11/3/2024
  ---------------------------------------------------------------------------------------------------
 */
-@TeleOp(name="ArmTestRedo with Lights: Linear OpMode", group="Linear OpMode")
-public class ArmTestRedo_OpMode_Linear extends LinearOpMode
+@TeleOp(name="ArmTestRedo_OpMode_Linear_Fisher", group="Linear OpMode")
+public class ArmTestRedo_OpMode_Linear_Fisher extends LinearOpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -27,7 +31,8 @@ public class ArmTestRedo_OpMode_Linear extends LinearOpMode
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        AR_Arm arm;
+        AR_Arm_Fisher arm;
+        //MecanumDrive_5518 mecanumDrive;
 //        AR_Light light;
 
         // get a reference to our touchSensor object.
@@ -40,7 +45,8 @@ public class ArmTestRedo_OpMode_Linear extends LinearOpMode
         runtime.reset();
 
         // Instantiate Arm & Light class
-        arm = new AR_Arm(this);
+        arm = new AR_Arm_Fisher(this);
+        //mecanumDrive = new MecanumDrive_5518(this);
 //        light = new AR_Light("status_light", this );
 
         // Place Arm in starting rest position
@@ -48,29 +54,29 @@ public class ArmTestRedo_OpMode_Linear extends LinearOpMode
 
         // Run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
+            //mecanumDrive.drive();
             // ===== CHECK FOR INPUTS FROM GAMEPADS, ETC. ==========================================
             // We should perform all our user input checks here. Every loop, we should determine if the
             // user has input anything.
-            if (gamepad1.triangle || gamepad1.y) {
+            if (gamepad2.triangle) {
                 telemetry.addData("Status","GP1:Triangle (Light: Police)");
 //                light.policeLights();
             }
-            if (gamepad1.square || gamepad1.a) {
+            if (gamepad2.square) {
                 telemetry.addData("Status","GP1:Square (setArmDeployPos) Light: Orange");
 
                 // Set Arm into Deploy position.
                 arm.setArmDeployPos();
 //                light.customLight(AR_Light.GB_CLR_ORANGE);
             }
-            if (gamepad1.circle || gamepad1.b) {
+            if (gamepad2.circle) {
                 telemetry.addData("Status","GP1:Circle (setArmRestPos)");
 
                 // Set Arm into Rest position.
-                arm.setArmActivePos( );
+                arm.setArmActivePos();
 //                light.customLight(AR_Light.GB_CLR_SAGE);
             }
-            if (gamepad1.cross || gamepad1.a) {
+            if (gamepad2.cross) {
                 telemetry.addData("Status","GP1:Cross (setArmGrabPos)");
 
                 // Set Arm into GRAB position.
@@ -92,6 +98,20 @@ public class ArmTestRedo_OpMode_Linear extends LinearOpMode
             if (gamepad1.dpad_right) {
                 telemetry.addData("Status","GP1:DPR (Light: Red (Custom))");
 //                light.customLight(AR_Light.GB_CLR_RED);
+            }
+            if (gamepad1.left_trigger != 0) {
+                //mecanumDrive.setBoost(1);
+            }
+            else {
+                //mecanumDrive.setBoost(0.5);
+            }
+            if (gamepad2.left_trigger > 0.1) {
+                arm.grab();
+            } else if (gamepad2.right_trigger > 0.1){
+                arm.drop();
+            }
+            else{
+                arm.rest();
             }
 
 //            if (!digitalTouch.getState()) {
