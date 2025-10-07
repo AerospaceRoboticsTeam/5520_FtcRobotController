@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
 @TeleOp(name = "Dev TeleOp", group = "TeleOp")
 public class TeleOp_Dev extends LinearOpMode {
   private MecanumDrive mecanumDrive;
+  private int artifactNum = 0;
 
   @Override
   public void runOpMode() throws InterruptedException {
