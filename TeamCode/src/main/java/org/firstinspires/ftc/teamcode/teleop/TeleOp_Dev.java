@@ -24,7 +24,7 @@ public class TeleOp_Dev extends LinearOpMode {
       mecanumDrive.drive();
 
       // Activate the drivetrain's boost if the left trigger is pressed down
-      // NOTE: May want to change from != 0 to >= 0.5 to prevent accidental
+      // NOTE: May want to change from != 0 to >= 0.5 to prevent accidental presses
       if(gamepad1.left_trigger != 0) {
         mecanumDrive.setBoost(1);
       }
