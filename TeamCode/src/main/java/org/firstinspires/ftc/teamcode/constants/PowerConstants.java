@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Libs.DecodeLibs;
+package org.firstinspires.ftc.teamcode.constants;
 
 public interface PowerConstants {
 	double INTAKE_IN_POWER = 0.8;
