@@ -20,9 +20,7 @@ public class Auto_Dev extends LinearOpMode {
 		launcher = new Launcher(this);
 
 		// Configure state
-		tagProcessor = new TagProcessor(
-			this, gamepad1.a ? Team.RED : Team.BLUE
-		);
+		tagProcessor = new TagProcessor(this, gamepad1.a ? Team.RED : Team.BLUE);
 
 		// Wait for Op mode to start and cancel startup if stopped
     waitForStart();
