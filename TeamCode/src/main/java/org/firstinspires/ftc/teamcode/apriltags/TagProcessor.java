@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.constants.Team;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagPoseFtc;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -47,5 +48,19 @@ public class TagProcessor {
 				}
 			}
 		}
+	}
+
+	/** @return An object containing position vectors to the middle of the goal tag relative to the robot's current position, otherwise null. */
+	public AprilTagPoseFtc getVectorsToGoalTag() {
+		if(tagProcessor.getDetections().isEmpty()) return null;
+
+		AprilTagPoseFtc tagPose = null;
+
+		for(AprilTagDetection tag : tagProcessor.getDetections()) {
+			if(team == Team.BLUE && tagPose == null && tag.id == TagIDs.BLUE_TAG) tagPose = tag.ftcPose;
+			else if(team == Team.RED && tagPose == null && tag.id == TagIDs.RED_TAG) tagPose = tag.ftcPose;
+		}
+
+		return tagPose;
 	}
 }
