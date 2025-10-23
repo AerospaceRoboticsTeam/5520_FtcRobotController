@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.auto;
 
+import org.firstinspires.ftc.teamcode.constants.ArtifactNumRef;
 import org.firstinspires.ftc.teamcode.constants.Team;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Launcher;
@@ -13,6 +14,8 @@ public class Auto_Dev extends LinearOpMode {
 	private TagProcessor tagProcessor;
 	private Intake intake;
 	private Launcher launcher;
+
+	private final ArtifactNumRef artifactNum = new ArtifactNumRef(0);
 
 	@Override
   public void runOpMode() throws InterruptedException {
