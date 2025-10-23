@@ -18,7 +18,7 @@ public class TagProcessor {
 	public final VisionPortal visionPortal;
 
 	/** Stores the found artifact pattern. If one wasn't found, the value will be 0. */
-	private Team team;
+	private final Team team;
 	public int artifactPattern = 0;
 
 	public TagProcessor(LinearOpMode opMode, Team team) {
@@ -50,7 +50,10 @@ public class TagProcessor {
 		}
 	}
 
-	/** @return An object containing position vectors to the middle of the goal tag relative to the robot's current position, otherwise null. */
+	/**
+	 * @return An object containing position vectors to the middle of the goal tag relative to the
+	 * robot's current position if the goal tag is in sight, otherwise null.
+	 */
 	public AprilTagPoseFtc getVectorsToGoalTag() {
 		if(tagProcessor.getDetections().isEmpty()) return null;
 
@@ -62,5 +65,13 @@ public class TagProcessor {
 		}
 
 		return tagPose;
+	}
+
+	public void getTelemetryData() {
+		bot.telemetry.addData("Team: ", team);
+		bot.telemetry.addData("Artifact pattern ID: ", artifactPattern);
+		bot.telemetry.addData("Artifact pattern: ",
+			artifactPattern == TagIDs.GGP ? "GGP" : artifactPattern == TagIDs.PGP ? "PGP" : artifactPattern == TagIDs.PPG ? "PPG" : "Unknown"
+		);
 	}
 }
