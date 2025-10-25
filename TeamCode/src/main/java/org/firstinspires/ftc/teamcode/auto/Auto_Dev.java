@@ -31,8 +31,7 @@ public class Auto_Dev extends LinearOpMode {
 
     // Run main loop
     while(opModeIsActive() && !isStopRequested()) {
-			// If the artifact pattern has not been found, attempt to get it
-			if(tagProcessor.artifactPattern == 0) tagProcessor.getArtifactPattern();
+			tagProcessor.getArtifactPattern();
 		}
   }
 }
