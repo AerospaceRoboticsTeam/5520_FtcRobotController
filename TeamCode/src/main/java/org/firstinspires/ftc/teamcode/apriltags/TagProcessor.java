@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.apriltags;
 
+import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.limelightvision.LLResult;
@@ -7,10 +8,13 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 import org.firstinspires.ftc.teamcode.constants.LimelightPipelines;
 import org.firstinspires.ftc.teamcode.constants.Team;
+
+import java.util.List;
 
 /** The April tag processor for the Decode season. */
 public class TagProcessor {
@@ -18,8 +22,8 @@ public class TagProcessor {
 	private final IMU imu;
 	private final Limelight3A limelight;
 
-	/** Stores the found artifact pattern. If one wasn't found, the value will be 0. */
 	private final Team team;
+	/** Stores the found artifact pattern. If one wasn't found, the value will be 0. */
 	public int artifactPattern = 0;
 
 	public TagProcessor(LinearOpMode opMode, Team team) {
@@ -51,9 +55,18 @@ public class TagProcessor {
 	/** Finds the artifact pattern from the obelisk using the camera's output. */
 	public void getArtifactPattern() {
 		// If the artifact pattern has not been found, attempt to get it
-		if(artifactPattern == 0) {
-			LLResult result = limelight.getLatestResult();
-			if(result != null && result.isValid() && result.getPipelineType().equals("TODO: Get Apriltag type")) {}
+		if(artifactPattern != 0) return;
+
+		LLResult result = limelight.getLatestResult();
+		if(result == null || !result.isValid() || !result.getPipelineType().equals("tagType")) return; // TODO: Get Apriltag type
+
+		List<LLResultTypes.FiducialResult> tags = result.getFiducialResults();
+		if(tags == null || tags.isEmpty()) return;
+
+		// Check the IDs of the found April Tags, setting the artifact pattern if an ID matches a pattern ID
+		for(LLResultTypes.FiducialResult tag : tags) {
+			int tagID = tag.getFiducialId();
+			if(tagID == TagIDs.GGP || tagID == TagIDs.PGP || tagID == TagIDs.PPG) artifactPattern = tagID;
 		}
 	}
 
