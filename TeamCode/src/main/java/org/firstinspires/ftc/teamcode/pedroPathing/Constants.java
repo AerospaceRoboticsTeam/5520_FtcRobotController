@@ -1,0 +1,28 @@
+package org.firstinspires.ftc.teamcode.pedroPathing;
+
+import com.pedropathing.follower.Follower;
+import com.pedropathing.follower.FollowerConstants;
+import com.pedropathing.ftc.FollowerBuilder;
+import com.pedropathing.paths.PathConstraints;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+public class Constants {
+	/**
+	 * Consist of values from the automatic, PID, and centripetal tuners.
+	 * <p>For more details, see <a href="https://pedropathing.com/docs/pathing/constants">
+	 * https://pedropathing.com/docs/pathing/constants</a>.
+	 */
+	public static FollowerConstants followerConstants = new FollowerConstants();
+	/**
+	 * Determine under what conditions a path may end.
+	 * <p>For more details, see <a href="https://pedropathing.com/docs/pathing/constants">
+	 * https://pedropathing.com/docs/pathing/constants</a>.
+	 */
+	public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
+
+	public static Follower createFollower(HardwareMap hardwareMap) {
+		return new FollowerBuilder(followerConstants, hardwareMap)
+			.pathConstraints(pathConstraints)
+			.build();
+	}
+}
