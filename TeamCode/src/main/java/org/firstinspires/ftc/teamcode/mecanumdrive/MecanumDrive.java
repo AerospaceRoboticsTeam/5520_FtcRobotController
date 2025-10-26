@@ -8,6 +8,8 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
+import org.firstinspires.ftc.teamcode.constants.DeviceConstants;
+
 /** A mecanum drive train for driving the robot. */
 public class MecanumDrive {
   /** Left joystick y value */
@@ -48,14 +50,16 @@ public class MecanumDrive {
   {
     // Get op mode instance and motors of robot from it
     bot = opMode;
-    frontLeft = opMode.hardwareMap.dcMotor.get("left_front_mtr");
-    frontRight = opMode.hardwareMap.dcMotor.get("right_front_mtr");
-    backLeft = opMode.hardwareMap.dcMotor.get("left_back_mtr");
-    backRight = opMode.hardwareMap.dcMotor.get("right_back_mtr");
+    frontLeft = opMode.hardwareMap.dcMotor.get(DeviceConstants.DriveTrain.LEFT_FRONT_MOTOR);
+    frontRight = opMode.hardwareMap.dcMotor.get(DeviceConstants.DriveTrain.RIGHT_FRONT_MOTOR);
+    backLeft = opMode.hardwareMap.dcMotor.get(DeviceConstants.DriveTrain.LEFT_BACK_MOTOR);
+    backRight = opMode.hardwareMap.dcMotor.get(DeviceConstants.DriveTrain.RIGHT_BACK_MOTOR);
 
-    // Reverse left motors so all motors rotate in the same direction
-    frontLeft.setDirection(DcMotor.Direction.REVERSE);
-    backLeft.setDirection(DcMotor.Direction.REVERSE);
+    // Set motor directions (Reverse left motors so all motors rotate in the same direction)
+    frontLeft.setDirection(DeviceConstants.DriveTrain.LFM_DIRECTION);
+    backLeft.setDirection(DeviceConstants.DriveTrain.LBM_DIRECTION);
+		frontRight.setDirection(DeviceConstants.DriveTrain.RFM_DIRECTION);
+		frontLeft.setDirection(DeviceConstants.DriveTrain.LFM_DIRECTION);
 
     // Initialize GoBilda Pinpoint Computer
     imu = bot.hardwareMap.get(IMU.class, "imu");
