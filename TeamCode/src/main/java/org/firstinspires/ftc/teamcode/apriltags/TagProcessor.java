@@ -4,13 +4,13 @@ import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.limelightvision.LLResult;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
+import org.firstinspires.ftc.teamcode.constants.DeviceConstants;
 import org.firstinspires.ftc.teamcode.constants.LimelightPipelines;
 import org.firstinspires.ftc.teamcode.constants.Team;
 
@@ -31,11 +31,8 @@ public class TagProcessor {
 		this.team = team;
 
 		// Initialize and set up IMU
-		RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.LEFT;
-		RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.UP;
-		RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);  // TODO: Change to match actual orientation
-		imu = bot.hardwareMap.get(IMU.class, "imu");
-		imu.initialize(new IMU.Parameters(orientationOnRobot));
+		imu = bot.hardwareMap.get(IMU.class, DeviceConstants.IMUDevice.NAME);
+		imu.initialize(DeviceConstants.IMUDevice.getParameters());
 
 		// Initialize Limelight
 		limelight = bot.hardwareMap.get(Limelight3A.class, "limelight");
