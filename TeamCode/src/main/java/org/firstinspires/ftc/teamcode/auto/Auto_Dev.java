@@ -32,6 +32,12 @@ public class Auto_Dev extends LinearOpMode {
     // Run main loop
     while(opModeIsActive() && !isStopRequested()) {
 			tagProcessor.getArtifactPattern();
+
+			// Get new telemetry data and push it to the driver station
+			tagProcessor.getTelemetryData();
+			intake.getTelemetryData();
+			launcher.getTelemetryData();
+			telemetry.update();
 		}
   }
 }
