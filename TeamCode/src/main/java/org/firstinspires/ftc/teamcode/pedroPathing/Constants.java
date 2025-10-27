@@ -2,14 +2,15 @@ package org.firstinspires.ftc.teamcode.pedroPathing;
 
 import com.pedropathing.follower.FollowerConstants;
 import com.pedropathing.ftc.drivetrains.MecanumConstants;
-
+import com.pedropathing.ftc.localization.constants.PinpointConstants;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.ftc.FollowerBuilder;
 import com.pedropathing.paths.PathConstraints;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.constants.DeviceConstants;
 
 public class Constants {
@@ -39,6 +40,21 @@ public class Constants {
 		.rightRearMotorDirection(DeviceConstants.DriveTrain.RBM_DIRECTION);
 
 	/**
+	 * Contain constants specific to your localizer. For example, OTOS constants include
+	 * the hardware map name of the OTOS and the offset.
+	 * <p>For more details, see <a href="https://pedropathing.com/docs/pathing/constants">
+	 * https://pedropathing.com/docs/pathing/constants</a>.
+	 */
+	public static PinpointConstants localizerConstants = new PinpointConstants()
+		.strafePodX(0.5)
+		.forwardPodY(-5)
+		.distanceUnit(DistanceUnit.CM)
+		.hardwareMapName("pinpoint")
+		.encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD)
+		.forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD)
+		.strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD);
+
+	/**
 	 * Determine under what conditions a path may end.
 	 * <p>For more details, see <a href="https://pedropathing.com/docs/pathing/constants">
 	 * https://pedropathing.com/docs/pathing/constants</a>.
@@ -47,8 +63,9 @@ public class Constants {
 
 	public static Follower createFollower(HardwareMap hardwareMap) {
 		return new FollowerBuilder(followerConstants, hardwareMap)
-			.pathConstraints(pathConstraints)
 			.mecanumDrivetrain(driveConstants)
+			.pinpointLocalizer(localizerConstants)
+			.pathConstraints(pathConstraints)
 			.build();
 	}
 }
