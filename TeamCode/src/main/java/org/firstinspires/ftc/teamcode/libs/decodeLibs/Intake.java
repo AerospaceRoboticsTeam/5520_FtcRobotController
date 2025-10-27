@@ -8,22 +8,38 @@ import org.firstinspires.ftc.teamcode.constants.PowerConstants;
 /** Controller for intake located at the front of the robot. */
 public class Intake {
 	private final LinearOpMode bot;
-	private final DcMotor intakeMotor;
+	private final DcMotor leftIntakeMotor;
+	private final DcMotor rightIntakeMotor;
 
 	public Intake(LinearOpMode opMode) {
 		// Attach variable to motor hardware and set up
 		bot = opMode;
-		intakeMotor = bot.hardwareMap.dcMotor.get("intakeMotor");
-		intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Not needed but left here for future additions if needed.
-		intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // This tells the motor to run with raw power values and not to listen to the built in encoders. We can still get the data we need from the encoders.
-		intakeMotor.setDirection(DcMotor.Direction.FORWARD); // TODO: Change to reverse if motor position is reversed
+
+		leftIntakeMotor = bot.hardwareMap.dcMotor.get("leftIntakeMotor");
+		leftIntakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+		leftIntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+		leftIntakeMotor.setDirection(DcMotor.Direction.FORWARD); // TODO: Change to REVERSE if motor rotates in wrong direction
+
+		rightIntakeMotor = bot.hardwareMap.dcMotor.get("rightIntakeMotor");
+		rightIntakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+		rightIntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+		rightIntakeMotor.setDirection(DcMotor.Direction.REVERSE); // TODO: Change to REVERSE if motor rotates in wrong direction
 	}
 
-	public void intakeIn() { intakeMotor.setPower(PowerConstants.INTAKE_IN_POWER); }
+	public void intakeIn() {
+		leftIntakeMotor.setPower(PowerConstants.INTAKE_IN_POWER);
+		rightIntakeMotor.setPower(PowerConstants.INTAKE_IN_POWER);
+	}
 
-	public void intakeOut() { intakeMotor.setPower(PowerConstants.INTAKE_OUT_POWER); }
+	public void intakeOut() {
+		leftIntakeMotor.setPower(PowerConstants.INTAKE_OUT_POWER);
+		rightIntakeMotor.setPower(PowerConstants.INTAKE_OUT_POWER);
+	}
 
-	public void intakeStop() { intakeMotor.setPower(0.0); }
+	public void intakeStop() {
+		leftIntakeMotor.setPower(0.0);
+		rightIntakeMotor.setPower(0.0);
+	}
 
 	/**
 	 * Set a custom intake power and direction.
@@ -32,10 +48,13 @@ public class Intake {
 	public void intakeCustom(double power, boolean direction){
 		power = Math.abs(power);
 		if(!direction) power = -power;
-		intakeMotor.setPower(power);
+		leftIntakeMotor.setPower(power);
+		rightIntakeMotor.setPower(power);
 	}
 
 	public void getTelemetryData() {
-		bot.telemetry.addData("Intake state: ", intakeMotor.getPower() > 0 ? "IN" : "OUT");
+		bot.telemetry.addData("Intake state: ",
+			leftIntakeMotor.getPower() > 0 && rightIntakeMotor.getPower() > 0 ? "IN" : "OUT"
+		);
 	}
 }
