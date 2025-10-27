@@ -39,7 +39,7 @@ public class TeleOp_Dev extends LinearOpMode {
 			else mecanumDrive.setBoost(0.5);
 
 			// Switch intake direction or turn it off
-			if(gamepad1.left_bumper) intake.intakeOut();
+			if(gamepad1.left_bumper) intake.intakeIn();
 			else if(gamepad1.right_bumper) intake.intakeOut();
 			else if(gamepad1.y) intake.intakeStop();
 
@@ -49,10 +49,11 @@ public class TeleOp_Dev extends LinearOpMode {
 
       /* TODO: Add input handlers for controlling other hardware */
 
-      // Get new telemetry data and push it to the driver station
-      mecanumDrive.getTelemetryData();
+			// Get new telemetry data and push it to the driver station
+			mecanumDrive.getTelemetryData();
+			intake.getTelemetryData();
 			launcher.getTelemetryData();
-      telemetry.update();
-    }
+			telemetry.update();
+		}
   }
 }
