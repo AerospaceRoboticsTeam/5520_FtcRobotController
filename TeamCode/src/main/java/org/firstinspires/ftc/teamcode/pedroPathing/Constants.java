@@ -20,7 +20,10 @@ public class Constants {
 	 * https://pedropathing.com/docs/pathing/constants</a>.
 	 */
 	public static FollowerConstants followerConstants = new FollowerConstants()
-		.mass(5); // TODO: Set this to the robot's weight when building is complete in KG
+		.mass(5)
+		.useSecondaryTranslationalPIDF(true)
+		.useSecondaryHeadingPIDF(true)
+		.useSecondaryDrivePIDF(true); // TODO: Set this to the robot's weight when building is complete in KG
 
 	/**
 	 * Contain constants specific to your drivetrain type. For example, mecanum drivetrain
