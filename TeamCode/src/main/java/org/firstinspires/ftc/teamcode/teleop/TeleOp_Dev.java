@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.constants.ArtifactNumRef;
+import org.firstinspires.ftc.teamcode.constants.PowerConstants;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Launcher;
 import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
@@ -44,7 +45,7 @@ public class TeleOp_Dev extends LinearOpMode {
 			else if(gamepad1.y) intake.intakeStop();
 
 			// Activate the launcher if the right trigger is pressed down
-			if(gamepad1.right_trigger >= 0.25) launcher.launch();
+			if(gamepad1.right_trigger >= 0.25) launcher.launch(PowerConstants.LAUNCH_POWER, PowerConstants.LAUNCH_POWER); //Temporary
 			else launcher.stopLaunch();
 
       /* TODO: Add input handlers for controlling other hardware */
