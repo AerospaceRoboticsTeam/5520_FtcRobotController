@@ -43,5 +43,6 @@ public class Launcher {
 
 enum LauncherStatus {
 	WAITING,
-	LAUNCHING
+	LAUNCHING,
+	READY
 }
