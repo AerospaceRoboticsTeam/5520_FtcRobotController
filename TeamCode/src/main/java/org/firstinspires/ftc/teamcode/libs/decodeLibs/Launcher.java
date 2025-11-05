@@ -35,10 +35,14 @@ public class Launcher {
 		state = LauncherStatus.IDLE;
 	}
 
-	public int[] linearVelocityToPower(float leftMotorVelocity, float rightMotorVelocity) {
+	public double[] linearVelocityToPower(float leftMotorVelocity, float rightMotorVelocity) {
+		final float leftRPS = leftMotorVelocity / LauncherConstants.GECKO_WHEEL_CIRCUMFERENCE;
+		final float rightRPS = rightMotorVelocity / LauncherConstants.GECKO_WHEEL_CIRCUMFERENCE;
 
+		final float leftPower = leftRPS / LauncherConstants.MAX_RPS;
+		final float rightPower = rightRPS / LauncherConstants.MAX_RPS;
 
-		return new int[]{};
+		return new double[]{leftPower, rightPower};
 	}
 
 	public void getTelemetryData() {
@@ -50,4 +54,17 @@ enum LauncherStatus {
 	IDLE,
 	LAUNCHING,
 	READY
+}
+
+final class LauncherConstants {
+	private LauncherConstants() {}
+
+	/** The radius of the Gecko wheels used in the launcher in meters. */
+	public static final float GECKO_WHEEL_RADIUS = (96f / 2f) / 1000f;
+	/** The circumference of the Gecko wheels used in the launcher in meters. */
+	public static final float GECKO_WHEEL_CIRCUMFERENCE = 2 * (float) Math.PI * GECKO_WHEEL_RADIUS;
+	/** The max <u>Revolutions Per Second</u> of the launcher motors. */
+	public static final float MAX_RPS = 6000f / 60f;
+	/** The maximum possible linear velocity of the launcher. */
+	public static final float MAX_LINEAR_VELOCITY = GECKO_WHEEL_CIRCUMFERENCE * MAX_RPS;
 }
