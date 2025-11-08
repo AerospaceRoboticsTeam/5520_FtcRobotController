@@ -20,7 +20,7 @@ public class Auto_Dev extends LinearOpMode {
 	@Override
   public void runOpMode() throws InterruptedException {
 		intake = new Intake(this);
-		launcher = new Launcher(this);
+		launcher = new Launcher(this, tagProcessor);
 
 		// Configure state
 		tagProcessor = new TagProcessor(this, gamepad1.a ? Team.RED : Team.BLUE);
