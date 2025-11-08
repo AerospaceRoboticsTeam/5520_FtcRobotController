@@ -39,16 +39,21 @@ public class Launcher {
 
 	public void update() {
 		switch(state) {
+			case START_UP:
 			case IDLE: {
 				final Pose3D cameraPos = tagProcessor.getVectorsToGoalTag();
-				calculateLinearVelocities(cameraPos);
+				final double[] linearVelocities = calculateLinearVelocities(cameraPos);
+				final double[] motorPowers = linearVelocityToPower(linearVelocities[0], linearVelocities[1]);
+				activateMotors(motorPowers[0], motorPowers[1]);
 
 				break;
 			}
 		}
 	}
 
-	public void calculateLinearVelocities(Pose3D cameraPos) {
+	public double[] calculateLinearVelocities(Pose3D cameraPos) {
+		if(state == LauncherStatus.IDLE || state == LauncherStatus.START_UP) return null;
+
 		final Position cameraPoint = cameraPos.getPosition();
 		cameraPoint.toUnit(DistanceUnit.METER);
 
@@ -67,11 +72,19 @@ public class Launcher {
 		final double deltaZ = launchPosZ - goalPosZ;
 
 		// Calculate the launcher angles
-		final double launcherYaw = 0;
+		final double launcherPitch = Math.toRadians(LAUNCHER_ANGLE);
+		final double launcherYaw = Math.atan(deltaZ / deltaX);
 
-		// Get the numerator and denominator
+		// Calculate the numerator and denominator of the linear velocity
 		final double numerator = 0.5 * GRAVITATIONAL_ACCELERATION * Math.pow(deltaX, 2);
-		final double denominator = Math.cos(launcherYaw);
+		final double denominator =
+			Math.pow(Math.cos(launcherYaw), 2) * Math.pow(Math.cos(launcherPitch), 2) *
+			(goalPosY - launchPosY) + deltaX * (Math.tan(launcherPitch) / Math.cos(launcherYaw));
+
+		// Calculate the linear velocity
+		final double linearVelocity = Math.sqrt(numerator / denominator);
+
+		return new double[]{linearVelocity / 2, linearVelocity / 2};
 	}
 
 	/**
@@ -82,12 +95,12 @@ public class Launcher {
 	 *   <li>the calculated right motor power value.</li>
 	 * </ol>
 	 */
-	public double[] linearVelocityToPower(float leftMotorVelocity, float rightMotorVelocity) {
-		final float leftRPS = leftMotorVelocity / LauncherConstants.GECKO_WHEEL_CIRCUMFERENCE;
-		final float rightRPS = rightMotorVelocity / LauncherConstants.GECKO_WHEEL_CIRCUMFERENCE;
+	public double[] linearVelocityToPower(double leftMotorVelocity, double rightMotorVelocity) {
+		final double leftRPS = leftMotorVelocity / LauncherConstants.GECKO_WHEEL_CIRCUMFERENCE;
+		final double rightRPS = rightMotorVelocity / LauncherConstants.GECKO_WHEEL_CIRCUMFERENCE;
 
-		final float leftPower = leftRPS / LauncherConstants.MAX_RPS;
-		final float rightPower = rightRPS / LauncherConstants.MAX_RPS;
+		final double leftPower = leftRPS / LauncherConstants.MAX_RPS;
+		final double rightPower = rightRPS / LauncherConstants.MAX_RPS;
 
 		return new double[]{leftPower, rightPower};
 	}
@@ -108,6 +121,20 @@ public class Launcher {
 		rightLauncherMotor.setPower(0);
 		leftLauncherMotor.setPower(0);
 		state = LauncherStatus.IDLE;
+	}
+
+	public void launch() {
+		if(
+			state == LauncherStatus.START_UP &&
+			leftLauncherMotor.getPower() > leftLauncherMotorPower - 0.1 &&
+			leftLauncherMotor.getPower() < leftLauncherMotorPower + 0.1 &&
+			rightLauncherMotor.getPower() > rightLauncherMotorPower - 0.1 &&
+			rightLauncherMotor.getPower() < rightLauncherMotorPower + 0.1
+		) {
+			state = LauncherStatus.LAUNCHING;
+
+			// TODO: ADD BOOT-KICKER CODE HERE
+		}
 	}
 
 	public void getTelemetryData() {
