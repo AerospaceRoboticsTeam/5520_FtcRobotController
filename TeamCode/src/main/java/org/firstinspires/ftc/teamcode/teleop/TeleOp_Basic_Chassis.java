@@ -5,10 +5,6 @@ import android.annotation.SuppressLint;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.constants.ArtifactNumRef;
-import org.firstinspires.ftc.teamcode.constants.PowerConstants;
-import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake;
-import org.firstinspires.ftc.teamcode.libs.decodeLibs.Launcher;
 import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
 
 @TeleOp(name = "Basic Chassis TeleOp", group = "TeleOp")

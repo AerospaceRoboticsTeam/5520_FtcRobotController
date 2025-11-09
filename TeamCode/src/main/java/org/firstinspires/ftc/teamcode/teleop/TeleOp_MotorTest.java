@@ -6,11 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.constants.ArtifactNumRef;
-import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake;
-import org.firstinspires.ftc.teamcode.libs.decodeLibs.Launcher;
-import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
-
 @TeleOp(name = "Basic TeleOp", group = "TeleOp")
 public class TeleOp_MotorTest extends LinearOpMode {
 
