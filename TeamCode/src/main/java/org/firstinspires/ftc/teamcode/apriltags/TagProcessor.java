@@ -29,10 +29,7 @@ public class TagProcessor {
 	public TagProcessor(LinearOpMode opMode, Team team) {
 		bot = opMode;
 		this.team = team;
-
-		// Initialize and set up IMU
 		imu = bot.hardwareMap.get(IMU.class, DeviceConstants.IMUDevice.NAME);
-		imu.initialize(DeviceConstants.IMUDevice.getParameters());
 
 		// Initialize Limelight
 		limelight = bot.hardwareMap.get(Limelight3A.class, "limelight");
@@ -49,12 +46,18 @@ public class TagProcessor {
 		limelight.updateRobotOrientation(orientation.getYaw(AngleUnit.DEGREES));
 	}
 
-	/** Checks whether the {@link LLResult} is a valid April Tag result. */
+	/**
+	 * Checks whether the {@link LLResult} is a valid April Tag result.
+	 * @return <code>True</code> if the result is invalid, <code>false</code> otherwise.
+	 */
 	private boolean isValidAprilTagResult(LLResult result) {
 		return result == null || !result.isValid() || !result.getPipelineType().equals("tagType"); // TODO: Get Apriltag type
 	}
 
-	/** Checks whether there are any April Tag results available. */
+	/**
+	 * Checks whether there are any April Tag results available.
+	 * @return <code>True</code> if there are no results, <code>false</code> otherwise.
+	 */
 	private boolean tagResultsExist(List<LLResultTypes.FiducialResult> tagResults) {
 		return tagResults == null || tagResults.isEmpty();
 	}
@@ -101,7 +104,8 @@ public class TagProcessor {
 		bot.telemetry.addData("Team: ", team);
 		bot.telemetry.addData("Artifact pattern ID: ", artifactPattern);
 		bot.telemetry.addData("Artifact pattern: ",
-			artifactPattern == TagIDs.GGP ? "GGP" : artifactPattern == TagIDs.PGP ? "PGP" : artifactPattern == TagIDs.PPG ? "PPG" : "Unknown"
+			artifactPattern == TagIDs.GGP ? "GGP" : artifactPattern == TagIDs.PGP ?
+			"PGP" : artifactPattern == TagIDs.PPG ? "PPG" : "Unknown"
 		);
 	}
 }
