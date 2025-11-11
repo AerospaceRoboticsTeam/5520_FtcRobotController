@@ -46,7 +46,8 @@ public class MecanumDrive {
   /** Linear Op Mode instance */
   private final LinearOpMode bot;
 
-  public MecanumDrive(LinearOpMode opMode)
+  @SuppressLint("SuspiciousIndentation")
+	public MecanumDrive(LinearOpMode opMode)
   {
     // Get op mode instance and motors of robot from it
     bot = opMode;
@@ -59,7 +60,13 @@ public class MecanumDrive {
     frontLeft.setDirection(DeviceConstants.DriveTrain.LFM_DIRECTION);
     backLeft.setDirection(DeviceConstants.DriveTrain.LBM_DIRECTION);
 		frontRight.setDirection(DeviceConstants.DriveTrain.RFM_DIRECTION);
-		frontLeft.setDirection(DeviceConstants.DriveTrain.LFM_DIRECTION);
+		backRight.setDirection(DeviceConstants.DriveTrain.LFM_DIRECTION);
+
+		for(DcMotor motor : new DcMotor[]{frontLeft, backLeft, frontRight, backRight}) {
+			motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+			motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+			motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		}
 
     // Initialize GoBilda Pinpoint Computer
     imu = bot.hardwareMap.get(IMU.class, "imu");
