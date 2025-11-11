@@ -18,6 +18,7 @@ public class TeleOp_Basic extends LinearOpMode {
 		mecanumDrive = new MecanumDrive(this);
 
 		// Wait for Op mode to start and cancel startup if stopped
+		waitForStart();
 		if(isStopRequested()) return;
 
 		// Run main loop
