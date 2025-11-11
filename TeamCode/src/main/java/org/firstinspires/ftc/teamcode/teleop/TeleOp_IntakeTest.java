@@ -5,25 +5,30 @@ import android.annotation.SuppressLint;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.apriltags.TagProcessor;
+import org.firstinspires.ftc.teamcode.constants.ArtifactNumRef;
+import org.firstinspires.ftc.teamcode.constants.PowerConstants;
+import org.firstinspires.ftc.teamcode.constants.Team;
+import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake;
+import org.firstinspires.ftc.teamcode.libs.decodeLibs.Launcher;
 import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
 
-@TeleOp(name = "Basic Chassis TeleOp", group = "TeleOp")
-public class TeleOp_Basic_Chassis extends LinearOpMode {
+@TeleOp(name = "Intake Test TeleOp", group = "TeleOp")
+public class TeleOp_IntakeTest extends LinearOpMode {
 	private MecanumDrive mecanumDrive;
-	//private Intake intake;
-	//private Launcher launcher;
+	private Intake intake;
 
-	//private final ArtifactNumRef artifactNum = new ArtifactNumRef(0);
+	private final ArtifactNumRef artifactNum = new ArtifactNumRef(0);
 
 	@SuppressLint("SuspiciousIndentation")
 	@Override
 	public void runOpMode() throws InterruptedException {
 		// Initialize mechanisms
 		mecanumDrive = new MecanumDrive(this);
-		//intake = new Intake(this);
-		//launcher = new Launcher(this);
+		intake = new Intake(this);
 
 		// Wait for Op mode to start and cancel startup if stopped
+		waitForStart();
 		if(isStopRequested()) return;
 
 		// Run main loop
@@ -36,20 +41,13 @@ public class TeleOp_Basic_Chassis extends LinearOpMode {
 			else mecanumDrive.setBoost(0.5);
 
 			// Switch intake direction or turn it off
-			/*
-			if(gamepad1.left_bumper) intake.intakeOut();
+			if(gamepad1.left_bumper) intake.intakeIn();
 			else if(gamepad1.right_bumper) intake.intakeOut();
 			else if(gamepad1.y) intake.intakeStop();
 
-			// Activate the launcher if the right trigger is pressed down
-			if(gamepad1.right_trigger >= 0.25) launcher.launch(PowerConstants.LAUNCH_POWER, PowerConstants.LAUNCH_POWER); //Temporary
-			else launcher.stopLaunch();
-			*/
-			/* TODO: Add input handlers for controlling other hardware */
-
 			// Get new telemetry data and push it to the driver station
 			mecanumDrive.getTelemetryData();
-			//launcher.getTelemetryData();
+			intake.getTelemetryData();
 			telemetry.update();
 		}
 	}

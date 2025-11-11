@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "Basic TeleOp", group = "TeleOp")
+@TeleOp(name = "Launcher Motor Test TeleOp", group = "TeleOp")
 public class TeleOp_MotorTest extends LinearOpMode {
 
 	@SuppressLint("SuspiciousIndentation")
