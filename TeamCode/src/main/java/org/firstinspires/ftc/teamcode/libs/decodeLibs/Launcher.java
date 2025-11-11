@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
@@ -33,9 +34,13 @@ public class Launcher {
 		this.tagProcessor = tagProcessor;
 
 		leftLauncherMotor = bot.hardwareMap.get(DcMotorEx.class, "launcherMotorLeft");
-		leftLauncherMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);//Switched from BRAKE to FLOAT because braking isn't necessary
 		rightLauncherMotor = bot.hardwareMap.get(DcMotorEx.class, "launcherMotorRight");
+
+		leftLauncherMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 		rightLauncherMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+		leftLauncherMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+		rightLauncherMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 		leftLauncherMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 		rightLauncherMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
@@ -105,22 +110,19 @@ public class Launcher {
 		final double leftRPS = leftMotorVelocity / LauncherConstants.GECKO_WHEEL_CIRCUMFERENCE;
 		final double rightRPS = rightMotorVelocity / LauncherConstants.GECKO_WHEEL_CIRCUMFERENCE;
 
-		final double leftPower = leftRPS / LauncherConstants.MAX_RPS;//I am not sure if this is accurate
+		final double leftPower = leftRPS / LauncherConstants.MAX_RPS;
 		final double rightPower = rightRPS / LauncherConstants.MAX_RPS;
 
 		return new double[]{leftPower, rightPower};
 	}
 
-	//New method to set motor velocity based on encoder data
+	/** Set the motor's velocity using angular velocity rather than power. */
 	public void setMotorVelocity(double leftMotorVelocityLinear, double rightMotorVelocityLinear){
-		final double leftRPS = leftMotorVelocityLinear / LauncherConstants.GECKO_WHEEL_CIRCUMFERENCE;
-		final double rightRPS = rightMotorVelocityLinear / LauncherConstants.GECKO_WHEEL_CIRCUMFERENCE;
+		final double leftAngularVelocity = leftMotorVelocityLinear / LauncherConstants.GECKO_WHEEL_RADIUS;
+		final double rightAngularVelocity = rightMotorVelocityLinear / LauncherConstants.GECKO_WHEEL_RADIUS;
 
-		double targetTicksPerRevL = leftRPS*TICKS_PER_REV_6000;
-		double targetTicksPerRevR = rightRPS*TICKS_PER_REV_6000;
-
-		leftLauncherMotor.setVelocity(targetTicksPerRevL);
-		rightLauncherMotor.setVelocity(targetTicksPerRevR);
+		leftLauncherMotor.setVelocity(leftAngularVelocity, AngleUnit.RADIANS);
+		rightLauncherMotor.setVelocity(rightAngularVelocity, AngleUnit.RADIANS);
 	}
 
 	public void activateMotors(double leftMotorPower, double rightMotorPower) {
