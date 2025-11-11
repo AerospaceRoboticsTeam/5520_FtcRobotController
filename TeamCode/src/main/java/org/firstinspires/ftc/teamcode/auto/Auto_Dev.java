@@ -5,7 +5,9 @@ import org.firstinspires.ftc.teamcode.constants.Team;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Launcher;
 import org.firstinspires.ftc.teamcode.apriltags.TagProcessor;
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
+import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -21,6 +23,7 @@ public class Auto_Dev extends LinearOpMode {
   public void runOpMode() throws InterruptedException {
 		intake = new Intake(this);
 		launcher = new Launcher(this, tagProcessor);
+		Follower pathFollower = Constants.createFollower(hardwareMap);
 
 		// Configure state
 		tagProcessor = new TagProcessor(this, gamepad1.a ? Team.RED : Team.BLUE);
