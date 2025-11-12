@@ -40,7 +40,8 @@ public class Constants {
 		.leftFrontMotorDirection(DeviceConstants.DriveTrain.LFM_DIRECTION)
 		.leftRearMotorDirection(DeviceConstants.DriveTrain.LBM_DIRECTION)
 		.rightFrontMotorDirection(DeviceConstants.DriveTrain.RFM_DIRECTION)
-		.rightRearMotorDirection(DeviceConstants.DriveTrain.RBM_DIRECTION);
+		.rightRearMotorDirection(DeviceConstants.DriveTrain.RBM_DIRECTION)
+		.useBrakeModeInTeleOp(true);
 
 	/**
 	 * Contain constants specific to your localizer. For example, OTOS constants include
