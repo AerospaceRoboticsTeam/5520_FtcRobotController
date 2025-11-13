@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Launcher;
 import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
 
-@TeleOp(name = "Dev TeleOp", group = OpModeGroups.TeleOp.dev)
+@TeleOp(name = "Dev TeleOp", group = OpModeGroups.dev)
 public class TeleOp_Dev extends LinearOpMode {
   private MecanumDrive mecanumDrive;
 	private TagProcessor tagProcessor;

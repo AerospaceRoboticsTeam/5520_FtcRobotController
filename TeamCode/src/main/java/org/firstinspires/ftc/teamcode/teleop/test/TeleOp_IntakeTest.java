@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.constants.OpModeGroups;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake;
 import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
 
-@TeleOp(name = "Intake Test", group = OpModeGroups.TeleOp.test)
+@TeleOp(name = "Intake Test", group = OpModeGroups.test)
 public class TeleOp_IntakeTest extends LinearOpMode {
 	private MecanumDrive mecanumDrive;
 	private Intake intake;

@@ -12,7 +12,7 @@ import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Dev Auto", group = OpModeGroups.Auto.dev)
+@Autonomous(name = "Dev Auto", group = OpModeGroups.dev)
 public class Auto_Dev extends LinearOpMode {
 	private TagProcessor tagProcessor;
 	private Intake intake;

@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.constants.OpModeGroups;
 
-@TeleOp(name = "Launcher Motor Test", group = OpModeGroups.TeleOp.test)
+@TeleOp(name = "Launcher Motor Test", group = OpModeGroups.test)
 public class TeleOp_MotorTest extends LinearOpMode {
 
 	@SuppressLint("SuspiciousIndentation")

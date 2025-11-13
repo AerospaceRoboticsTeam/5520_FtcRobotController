@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.constants.OpModeGroups;
 import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
 
-@TeleOp(name = "Basic Mecanum", group = OpModeGroups.TeleOp.vanilla)
+@TeleOp(name = "Basic Mecanum", group = OpModeGroups.vanilla)
 public class TeleOp_Basic extends LinearOpMode {
 	private MecanumDrive mecanumDrive;
 

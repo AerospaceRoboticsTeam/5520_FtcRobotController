@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.constants.OpModeGroups;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 @Configurable
-@TeleOp(name = "PedroPathing Basic", group = OpModeGroups.TeleOp.pedroPathing)
+@TeleOp(name = "PedroPathing Basic", group = OpModeGroups.pedroPathing)
 public class TeleOp_PedroPathingBasic extends OpMode {
 	private Follower follower;
 	private static double multiplier = 0.5;
