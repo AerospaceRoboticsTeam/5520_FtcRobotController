@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.apriltags.TagProcessor;
 
 /** Controller for the Limelight itself as well as the servo it's attached to. */
+//TODO: Update based on Pipelines, as outlined in the Programming Notes.
 public class LLCamera {
 	private final Servo cameraServo;
 	private final TagProcessor tagProcessor;
