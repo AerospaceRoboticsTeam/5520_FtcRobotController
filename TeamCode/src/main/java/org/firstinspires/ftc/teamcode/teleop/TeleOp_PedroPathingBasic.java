@@ -1,13 +1,18 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
+import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.constants.OpModeGroups;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
+@Configurable
+@TeleOp(name = "PedroPathing Basic", group = OpModeGroups.TeleOp.pedroPathing)
 public class TeleOp_PedroPathingBasic extends OpMode {
 	private Follower follower;
-	private double multiplier = 0.5;
+	private static double multiplier = 0.5;
 
 	@Override
 	public void init() {

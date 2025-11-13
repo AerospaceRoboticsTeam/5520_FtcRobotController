@@ -5,9 +5,10 @@ import android.annotation.SuppressLint;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.constants.OpModeGroups;
 import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
 
-@TeleOp(name = "Basic TeleOp", group = "TeleOp")
+@TeleOp(name = "Basic Mecanum", group = OpModeGroups.TeleOp.vanilla)
 public class TeleOp_Basic extends LinearOpMode {
 	private MecanumDrive mecanumDrive;
 

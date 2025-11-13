@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.auto.dev;
 
 import org.firstinspires.ftc.teamcode.constants.ArtifactNumRef;
+import org.firstinspires.ftc.teamcode.constants.OpModeGroups;
 import org.firstinspires.ftc.teamcode.constants.Team;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Launcher;
@@ -11,7 +12,7 @@ import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Dev Auto", group = "Auto")
+@Autonomous(name = "Dev Auto", group = OpModeGroups.Auto.dev)
 public class Auto_Dev extends LinearOpMode {
 	private TagProcessor tagProcessor;
 	private Intake intake;

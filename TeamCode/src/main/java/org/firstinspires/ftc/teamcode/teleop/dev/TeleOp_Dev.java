@@ -7,13 +7,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.apriltags.TagProcessor;
 import org.firstinspires.ftc.teamcode.constants.ArtifactNumRef;
+import org.firstinspires.ftc.teamcode.constants.OpModeGroups;
 import org.firstinspires.ftc.teamcode.constants.PowerConstants;
 import org.firstinspires.ftc.teamcode.constants.Team;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Launcher;
 import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
 
-@TeleOp(name = "Dev TeleOp", group = "Dev")
+@TeleOp(name = "Dev TeleOp", group = OpModeGroups.TeleOp.dev)
 public class TeleOp_Dev extends LinearOpMode {
   private MecanumDrive mecanumDrive;
 	private TagProcessor tagProcessor;

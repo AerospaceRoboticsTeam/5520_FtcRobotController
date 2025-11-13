@@ -6,10 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.constants.ArtifactNumRef;
+import org.firstinspires.ftc.teamcode.constants.OpModeGroups;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake;
 import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
 
-@TeleOp(name = "Intake Test TeleOp", group = "Test")
+@TeleOp(name = "Intake Test", group = OpModeGroups.TeleOp.test)
 public class TeleOp_IntakeTest extends LinearOpMode {
 	private MecanumDrive mecanumDrive;
 	private Intake intake;
