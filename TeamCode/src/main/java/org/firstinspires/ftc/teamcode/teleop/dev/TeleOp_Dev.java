@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.teleop;
+package org.firstinspires.ftc.teamcode.teleop.dev;
 
 import android.annotation.SuppressLint;
 
@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Launcher;
 import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
 
-@TeleOp(name = "Dev TeleOp", group = "TeleOp")
+@TeleOp(name = "Dev TeleOp", group = "Dev")
 public class TeleOp_Dev extends LinearOpMode {
   private MecanumDrive mecanumDrive;
 	private TagProcessor tagProcessor;

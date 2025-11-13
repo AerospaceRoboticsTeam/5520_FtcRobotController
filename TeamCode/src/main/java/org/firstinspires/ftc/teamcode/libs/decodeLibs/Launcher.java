@@ -159,8 +159,8 @@ public class Launcher {
 
 	public void getTelemetryData() {
 		bot.telemetry.addData("Launcher status: ", state);
-		bot.telemetry.addData("Left Launcher Motor Power", leftLauncherMotorPower);
-		bot.telemetry.addData("Right Launcher Motor Power", rightLauncherMotorPower);
+		bot.telemetry.addData("Left Launcher Motor Power: ", leftLauncherMotorPower);
+		bot.telemetry.addData("Right Launcher Motor Power: ", rightLauncherMotorPower);
 	}
 }
 

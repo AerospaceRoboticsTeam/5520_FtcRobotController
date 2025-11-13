@@ -1,19 +1,15 @@
-package org.firstinspires.ftc.teamcode.teleop;
+package org.firstinspires.ftc.teamcode.teleop.test;
 
 import android.annotation.SuppressLint;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.apriltags.TagProcessor;
 import org.firstinspires.ftc.teamcode.constants.ArtifactNumRef;
-import org.firstinspires.ftc.teamcode.constants.PowerConstants;
-import org.firstinspires.ftc.teamcode.constants.Team;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake;
-import org.firstinspires.ftc.teamcode.libs.decodeLibs.Launcher;
 import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
 
-@TeleOp(name = "Intake Test TeleOp", group = "TeleOp")
+@TeleOp(name = "Intake Test TeleOp", group = "Test")
 public class TeleOp_IntakeTest extends LinearOpMode {
 	private MecanumDrive mecanumDrive;
 	private Intake intake;

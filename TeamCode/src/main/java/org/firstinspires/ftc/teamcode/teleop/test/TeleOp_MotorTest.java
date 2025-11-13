@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.teleop;
+package org.firstinspires.ftc.teamcode.teleop.test;
 
 import android.annotation.SuppressLint;
 
@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "Launcher Motor Test TeleOp", group = "TeleOp")
+@TeleOp(name = "Launcher Motor Test TeleOp", group = "Test")
 public class TeleOp_MotorTest extends LinearOpMode {
 
 	@SuppressLint("SuspiciousIndentation")
