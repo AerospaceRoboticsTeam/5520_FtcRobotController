@@ -1,17 +1,17 @@
 package org.firstinspires.ftc.teamcode.libs.decodeLibs;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.constants.PowerConstants;
 
 /** Controller for intake located at the front of the robot. */
 public class Intake {
-	private final LinearOpMode bot;
+	private final OpMode bot;
 	private final DcMotor leftIntakeMotor;
 	private final DcMotor rightIntakeMotor;
 
-	public Intake(LinearOpMode opMode) {
+	public Intake(OpMode opMode) {
 		// Attach variable to motor hardware and set up
 		bot = opMode;
 

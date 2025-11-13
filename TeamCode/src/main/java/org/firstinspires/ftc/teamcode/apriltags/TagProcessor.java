@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.apriltags;
 
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -18,7 +18,7 @@ import java.util.List;
 
 /** The April tag processor for the Decode season. */
 public class TagProcessor {
-	private final LinearOpMode bot;
+	private final OpMode bot;
 	private final IMU imu;
 	private final Limelight3A limelight;
 
@@ -26,7 +26,7 @@ public class TagProcessor {
 	/** Stores the found artifact pattern. If one wasn't found, the value will be 0. */
 	public int artifactPattern = 0;
 
-	public TagProcessor(LinearOpMode opMode, Team team) {
+	public TagProcessor(OpMode opMode, Team team) {
 		bot = opMode;
 		this.team = team;
 		imu = bot.hardwareMap.get(IMU.class, DeviceConstants.IMUDevice.NAME);
@@ -45,6 +45,9 @@ public class TagProcessor {
 		YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
 		limelight.updateRobotOrientation(orientation.getYaw(AngleUnit.DEGREES));
 	}
+
+	/** Get the robot's starting position on the field via the April tags around the field. */
+	public void localizeViaTags() {}
 
 	/**
 	 * Checks whether the {@link LLResult} is a valid April Tag result.
@@ -101,9 +104,9 @@ public class TagProcessor {
 	}
 
 	public void getTelemetryData() {
-		bot.telemetry.addData("Team: ", team);
-		bot.telemetry.addData("Artifact pattern ID: ", artifactPattern);
-		bot.telemetry.addData("Artifact pattern: ",
+		bot.telemetry.addData("Team", team);
+		bot.telemetry.addData("Artifact pattern ID", artifactPattern);
+		bot.telemetry.addData("Artifact pattern",
 			artifactPattern == TagIDs.GGP ? "GGP" : artifactPattern == TagIDs.PGP ?
 			"PGP" : artifactPattern == TagIDs.PPG ? "PPG" : "Unknown"
 		);

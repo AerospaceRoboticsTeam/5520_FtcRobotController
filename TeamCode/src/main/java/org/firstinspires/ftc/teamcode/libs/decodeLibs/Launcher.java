@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.libs.decodeLibs;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.constants.ArtifactNumRef;
 
 /** Controller for the robot's launcher. */
 public class Launcher {
-	private final LinearOpMode bot;
+	private final OpMode bot;
 	private final TagProcessor tagProcessor;
 	private final DcMotorEx leftLauncherMotor;
 	private final DcMotorEx rightLauncherMotor;
@@ -27,9 +27,7 @@ public class Launcher {
 	private final double GRAVITATIONAL_ACCELERATION = 9.81;
 	private final double LAUNCHER_ANGLE = 45;
 
-	private final double TICKS_PER_REV_6000 = 537.6;
-
-	public Launcher(LinearOpMode opMode, TagProcessor tagProcessor) {
+	public Launcher(OpMode opMode, TagProcessor tagProcessor) {
 		bot = opMode;
 		this.tagProcessor = tagProcessor;
 
