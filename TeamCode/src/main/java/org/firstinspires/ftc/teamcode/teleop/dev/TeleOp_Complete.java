@@ -47,6 +47,7 @@ public class TeleOp_Complete extends OpMode {
 	@Override
 	public void start() {
 		follower.startTeleOpDrive();
+		tagProcessor.startLimelight();
 	}
 
 	@Override
