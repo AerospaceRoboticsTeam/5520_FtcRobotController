@@ -14,8 +14,8 @@ public class TeleOp_MotorTest extends LinearOpMode {
 	@SuppressLint("SuspiciousIndentation")
 	@Override
 	public void runOpMode() throws InterruptedException {
-		DcMotor leftLauncherMotor = hardwareMap.get(DcMotor.class, "leftLauncherMotor");
-		DcMotor rightLauncherMotor = hardwareMap.get(DcMotor.class, "rightLauncherMotor");
+		DcMotor leftLauncherMotor = hardwareMap.get(DcMotor.class, "launcherMotorLeft");
+		DcMotor rightLauncherMotor = hardwareMap.get(DcMotor.class, "launcherMotorRight");
 
 		waitForStart();
 
