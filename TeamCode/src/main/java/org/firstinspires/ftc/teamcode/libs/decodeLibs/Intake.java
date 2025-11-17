@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.libs.decodeLibs;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.ColorRangeSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.constants.PowerConstants;
@@ -24,6 +25,7 @@ public class Intake {
 		rightIntakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 		rightIntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 		rightIntakeMotor.setDirection(DcMotor.Direction.REVERSE); // TODO: Change to REVERSE if motor rotates in wrong direction
+
 	}
 
 	public void intakeIn() {
