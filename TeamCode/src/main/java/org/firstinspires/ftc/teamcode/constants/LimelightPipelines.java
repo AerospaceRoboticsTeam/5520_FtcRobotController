@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.constants;
 
-public interface LimelightPipelines {
-	int APRILTAG_PIPELINE = 0;
+public final class LimelightPipelines {
+	private LimelightPipelines() {}
+
+	public static final int APRILTAG_PIPELINE = 0;
 }
