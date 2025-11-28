@@ -24,7 +24,7 @@ public class LightController {
 	}
 
 	public void getTelemetryData() {
-		bot.telemetry.addData("Light Mode/State: ", state.modeState);
+		bot.telemetry.addData("Light Mode/State", state.modeState);
 	}
 }
 
@@ -48,8 +48,9 @@ class LightState {
 		colors.put(LightMode.WHITE, 1.0);
 	}
 
+	/** @return The value of the inputted light mode, otherwise <code>-1.0</code> if the mode doesn't have a value. */
 	public double getModeValue(LightMode mode) {
-		return colors.get(mode);
+		return colors.get(mode) != null ? colors.get(mode) : -1.0;
 	}
 }
 
