@@ -15,10 +15,10 @@ import org.firstinspires.ftc.teamcode.libs.decodeLibs.Launcher;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.LauncherBasic;
 import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
 
-@TeleOp(name = "Dev TeleOp", group = OpModeGroups.dev)
+@TeleOp(name = "Dev TeleOp 2", group = OpModeGroups.dev)
 public class TeleOp_Dev2 extends LinearOpMode {
 	private MecanumDrive mecanumDrive;
-	private TagProcessor tagProcessor;
+	//private TagProcessor tagProcessor;
 	private Intake intake;
 	private LauncherBasic launcher;
 	private static double launchPower = 0.0;
