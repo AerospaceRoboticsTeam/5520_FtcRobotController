@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Launcher;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.LauncherBasic;
 import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
+import org.firstinspires.ftc.teamcode.libs.decodeLibs.MagMotor;
 
 @TeleOp(name = "Dev TeleOp 2", group = OpModeGroups.dev)
 public class TeleOp_Dev2 extends LinearOpMode {
@@ -21,6 +22,9 @@ public class TeleOp_Dev2 extends LinearOpMode {
 	//private TagProcessor tagProcessor;
 	private Intake intake;
 	private LauncherBasic launcher;
+
+	private MagMotor magMotor;
+
 	private static double launchPower = 0.0;
 	private static double launchPowerBalance = 0.0;
 
@@ -34,6 +38,7 @@ public class TeleOp_Dev2 extends LinearOpMode {
 		//tagProcessor = new TagProcessor(this, gamepad1.a ? Team.RED : Team.BLUE);
 		intake = new Intake(this);
 		launcher = new LauncherBasic(this);
+		magMotor = new MagMotor(this);
 
 		// Wait for Op mode to start and cancel startup if stopped
 		waitForStart();
@@ -43,6 +48,7 @@ public class TeleOp_Dev2 extends LinearOpMode {
 		while(opModeIsActive() && !isStopRequested()) {
 			// Updates the drivetrain with the game controller's current values once every loop
 			mecanumDrive.drive();
+			magMotor.go();
 
 			// Activate the drivetrain's boost if the left trigger is pressed down
 			if ((gamepad1.left_trigger >= 0.25)) mecanumDrive.setBoost(1);
@@ -51,7 +57,7 @@ public class TeleOp_Dev2 extends LinearOpMode {
 			// Switch intake direction or turn it off
 			if(gamepad1.left_bumper) intake.intakeIn();
 			else if(gamepad1.right_bumper) intake.intakeOut();
-			else if(gamepad1.y) intake.intakeStop();
+			else if(gamepad1.triangle) intake.intakeStop();
 
 			if (gamepad1.dpad_up) {
 				launchPower += 0.1;
