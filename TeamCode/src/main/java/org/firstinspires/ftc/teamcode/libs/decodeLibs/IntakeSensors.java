@@ -10,10 +10,11 @@ public class IntakeSensors {
 	public IntakeSensors(OpMode opMode) {
 		colorSensor = opMode.hardwareMap.get(NormalizedColorSensor.class, "intakeColorSensor");
 	}
-
+	/*
 	public SensorColor getDetectedColor() {
 		NormalizedRGBA colors = colorSensor.getNormalizedColors();
 
 
 	}
+	 */
 }

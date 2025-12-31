@@ -15,15 +15,17 @@ import org.firstinspires.ftc.teamcode.libs.decodeLibs.Launcher;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.LauncherBasic;
 import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.MagMotor;
+import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake2;
 
 @TeleOp(name = "Dev TeleOp 2", group = OpModeGroups.dev)
 public class TeleOp_Dev2 extends LinearOpMode {
 	private MecanumDrive mecanumDrive;
 	//private TagProcessor tagProcessor;
-	private Intake intake;
 	private LauncherBasic launcher;
 
 	private MagMotor magMotor;
+
+	private Intake2 intake;
 
 	private static double launchPower = 0.0;
 	private static double launchPowerBalance = 0.0;
@@ -36,7 +38,7 @@ public class TeleOp_Dev2 extends LinearOpMode {
 		// Initialize mechanisms
 		mecanumDrive = new MecanumDrive(this);
 		//tagProcessor = new TagProcessor(this, gamepad1.a ? Team.RED : Team.BLUE);
-		intake = new Intake(this);
+		intake = new Intake2(this);
 		launcher = new LauncherBasic(this);
 		magMotor = new MagMotor(this);
 
