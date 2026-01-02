@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.libs.decodeLibs.MagMotor;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake2;
 
 @TeleOp(name = "Dev TeleOp 2", group = OpModeGroups.dev)
-public class TeleOp_Dev2 extends LinearOpMode {
+public class TeleOp_Dev3 extends LinearOpMode {
 	private MecanumDrive mecanumDrive;
 	//private TagProcessor tagProcessor;
 	private LauncherBasic launcher;
@@ -29,6 +29,8 @@ public class TeleOp_Dev2 extends LinearOpMode {
 
 	private static double launchPower = 0.0;
 	private static double launchPowerBalance = 0.0;
+
+	private static final double spinSensitivity = 1;
 
 	private final ArtifactNumRef artifactNum = new ArtifactNumRef(0);
 
@@ -61,23 +63,17 @@ public class TeleOp_Dev2 extends LinearOpMode {
 			else if(gamepad1.right_bumper) intake.intakeOut();
 			else if(gamepad1.triangle) intake.intakeStop();
 
-			if (gamepad1.dpad_up) {
-				launchPower += 0.01;
-			} else if (gamepad1.dpad_down) {
-				launchPower -= 0.01;
-			}
+			//Launcher Control with Gamepad2 Right Stick
+			double joystickValR2Y = gamepad2.right_stick_y;
+			double joystickValR2X = gamepad2.right_stick_x;
 
-			if (gamepad1.dpad_right) {
-				launchPowerBalance += 0.1;
-			} else if (gamepad1.dpad_left) {
-				launchPowerBalance -= 0.1;
-			}
+			double leftMotor = joystickValR2Y - (joystickValR2X * spinSensitivity);
+			double rightMotor = joystickValR2Y + (joystickValR2X * spinSensitivity);
 
-			if (gamepad1.right_trigger >= 0.25) {
-				launcher.activateMotors(launchPower + launchPowerBalance, launchPower - launchPowerBalance);
-			} else if (gamepad1.left_trigger >= 0.25) {
-				launcher.stopMotors();
-			}
+			leftMotor = checkLauncherPowerVals(leftMotor);
+			rightMotor = checkLauncherPowerVals(rightMotor);
+
+			launcher.activateMotors(leftMotor, rightMotor);
 
 			/* TODO: Add input handlers for controlling other hardware */
 
@@ -87,5 +83,10 @@ public class TeleOp_Dev2 extends LinearOpMode {
 			launcher.getTelemetryData();
 			telemetry.update();
 		}
+	}
+	private static double checkLauncherPowerVals(double value) {
+		if (value > 1.0) return 1.0;
+		if (value < 0.0) return 0.0;
+		return value;
 	}
 }

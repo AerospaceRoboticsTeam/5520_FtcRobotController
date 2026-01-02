@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.constants;
 
 public interface PowerConstants {
-	double INTAKE_IN_POWER = 0.9;
-	double INTAKE_OUT_POWER = -0.9;
+	double INTAKE_IN_POWER = 0.95;
+	double INTAKE_OUT_POWER = -0.95;
 
 
 	//For temporary use ONLY

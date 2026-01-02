@@ -20,7 +20,7 @@ public class Constants {
 	 * https://pedropathing.com/docs/pathing/constants</a>.
 	 */
 	public static FollowerConstants followerConstants = new FollowerConstants()
-		.mass(5)
+		.mass(14.5)//Estimate of robot weight in KG
 		.useSecondaryTranslationalPIDF(true)
 		.useSecondaryHeadingPIDF(true)
 		.useSecondaryDrivePIDF(true); // TODO: Set this to the robot's weight when building is complete in KG
