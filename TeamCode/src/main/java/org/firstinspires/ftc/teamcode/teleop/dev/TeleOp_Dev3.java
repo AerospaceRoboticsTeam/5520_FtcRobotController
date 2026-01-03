@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.mecanumdrive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.MagMotor;
 import org.firstinspires.ftc.teamcode.libs.decodeLibs.Intake2;
 
-@TeleOp(name = "Dev TeleOp 2", group = OpModeGroups.dev)
+@TeleOp(name = "Dev TeleOp 3", group = OpModeGroups.dev)
 public class TeleOp_Dev3 extends LinearOpMode {
 	private MecanumDrive mecanumDrive;
 	//private TagProcessor tagProcessor;
@@ -73,7 +73,7 @@ public class TeleOp_Dev3 extends LinearOpMode {
 			leftMotor = checkLauncherPowerVals(leftMotor);
 			rightMotor = checkLauncherPowerVals(rightMotor);
 
-			launcher.activateMotors(leftMotor, rightMotor);
+			launcher.activateMotors(-leftMotor, rightMotor);
 
 			/* TODO: Add input handlers for controlling other hardware */
 
