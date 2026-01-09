@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
@@ -34,9 +35,9 @@ public class MecanumDrive {
   /** Right back motor power */
   private double rightBackPower;
 
-  private static final double xSensitivity = 1.3;
-  private static final double ySensitivity = 0.75;
-  private static final double rxSensitivity = 0.75;
+  private static final double xSensitivity = 1.0; // 1.3
+  private static final double ySensitivity = 1.0; // 0.75
+  private static final double rxSensitivity = 1.0; // 0.75
   private double boost = 0.5;
 
   /** Robot wheel motors */
@@ -57,10 +58,10 @@ public class MecanumDrive {
     backRight = opMode.hardwareMap.dcMotor.get(DeviceConstants.DriveTrain.RIGHT_BACK_MOTOR);
 
     // Set motor directions (Reverse left motors so all motors rotate in the same direction)
-    frontLeft.setDirection(DeviceConstants.DriveTrain.LFM_DIRECTION);
-    backLeft.setDirection(DeviceConstants.DriveTrain.LBM_DIRECTION);
-		frontRight.setDirection(DeviceConstants.DriveTrain.RFM_DIRECTION);
-		backRight.setDirection(DeviceConstants.DriveTrain.LFM_DIRECTION);
+    frontLeft.setDirection(DcMotor.Direction.REVERSE);
+    backLeft.setDirection(DcMotor.Direction.REVERSE);
+		frontRight.setDirection(DcMotor.Direction.FORWARD);
+		backRight.setDirection(DcMotor.Direction.FORWARD);
 
 		for(DcMotor motor : new DcMotor[]{frontLeft, backLeft, frontRight, backRight}) {
 			motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -71,8 +72,8 @@ public class MecanumDrive {
     // Initialize GoBilda Pinpoint Computer
     imu = bot.hardwareMap.get(IMU.class, "imu");
     IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-      RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
-      RevHubOrientationOnRobot.UsbFacingDirection.UP
+      RevHubOrientationOnRobot.LogoFacingDirection.UP,
+      RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
     ));
     imu.initialize(parameters);
   }
