@@ -7,8 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.constants.OpModeGroups;
 
-@TeleOp()
+@TeleOp(name = "GM0_FieldCentric_Basic_Mecanum", group = OpModeGroups.dev)
 public class GM0_FieldCentric_Basic_Mecanum extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
