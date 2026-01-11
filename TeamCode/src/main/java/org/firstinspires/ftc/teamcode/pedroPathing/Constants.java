@@ -11,7 +11,7 @@ import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.constants.DeviceConstants;
+import org.firstinspires.ftc.teamcode.subsystems.drivetrain.DrivetrainConstants;
 
 public class Constants {
 	/**
@@ -20,10 +20,10 @@ public class Constants {
 	 * https://pedropathing.com/docs/pathing/constants</a>.
 	 */
 	public static FollowerConstants followerConstants = new FollowerConstants()
-		.mass(14.5)//Estimate of robot weight in KG
+		.mass(14.5) // TODO: Set this to the robot's weight when building is complete in KG
 		.useSecondaryTranslationalPIDF(true)
 		.useSecondaryHeadingPIDF(true)
-		.useSecondaryDrivePIDF(true); // TODO: Set this to the robot's weight when building is complete in KG
+		.useSecondaryDrivePIDF(true);
 
 	/**
 	 * Contain constants specific to your drivetrain type. For example, mecanum drivetrain
@@ -33,14 +33,14 @@ public class Constants {
 	 */
 	public static MecanumConstants driveConstants = new MecanumConstants()
 		.maxPower(1) // NOTE: Must be a value between 0 and 1
-		.leftFrontMotorName(DeviceConstants.DriveTrain.LEFT_FRONT_MOTOR)
-		.leftRearMotorName(DeviceConstants.DriveTrain.LEFT_BACK_MOTOR)
-		.rightFrontMotorName(DeviceConstants.DriveTrain.RIGHT_FRONT_MOTOR)
-		.rightRearMotorName(DeviceConstants.DriveTrain.RIGHT_BACK_MOTOR)
-		.leftFrontMotorDirection(DeviceConstants.DriveTrain.LFM_DIRECTION)
-		.leftRearMotorDirection(DeviceConstants.DriveTrain.LBM_DIRECTION)
-		.rightFrontMotorDirection(DeviceConstants.DriveTrain.RFM_DIRECTION)
-		.rightRearMotorDirection(DeviceConstants.DriveTrain.RBM_DIRECTION)
+		.leftFrontMotorName(DrivetrainConstants.LEFT_FRONT_MOTOR)
+		.leftRearMotorName(DrivetrainConstants.LEFT_BACK_MOTOR)
+		.rightFrontMotorName(DrivetrainConstants.RIGHT_FRONT_MOTOR)
+		.rightRearMotorName(DrivetrainConstants.RIGHT_BACK_MOTOR)
+		.leftFrontMotorDirection(DrivetrainConstants.LFM_DIRECTION)
+		.leftRearMotorDirection(DrivetrainConstants.LBM_DIRECTION)
+		.rightFrontMotorDirection(DrivetrainConstants.RFM_DIRECTION)
+		.rightRearMotorDirection(DrivetrainConstants.RBM_DIRECTION)
 		.useBrakeModeInTeleOp(true);
 
 	/**
