@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.utils.Team;
 import org.firstinspires.ftc.teamcode.utils.components.OpModeBase
 import org.firstinspires.ftc.teamcode.opModes.OpModeGroups;
-import org.firstinspires.ftc.teamcode.vision.limelight.LimelightProcessor;
+import org.firstinspires.ftc.teamcode.subsystems.vision.limelight.LimelightProcessor;
 
 @Configurable
 @TeleOp(name = "PedroPathing Complete", group = OpModeGroups.DEV_COMPLETE)

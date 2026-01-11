@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.drivetrain.RudimentaryMecanumDr
 import org.firstinspires.ftc.teamcode.utils.Team;
 import org.firstinspires.ftc.teamcode.utils.components.OpModeBase;
 import org.firstinspires.ftc.teamcode.opModes.OpModeGroups;
-import org.firstinspires.ftc.teamcode.vision.limelight.LimelightProcessor;
+import org.firstinspires.ftc.teamcode.subsystems.vision.limelight.LimelightProcessor;
 
 @TeleOp(name = "Basic Complete", group = OpModeGroups.DEV_COMPLETE)
 class TeleOp_BasicComplete : LinearOpMode(), OpModeBase {

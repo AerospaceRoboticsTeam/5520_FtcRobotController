@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.vision.limelight
+package org.firstinspires.ftc.teamcode.subsystems.vision.limelight
 
 import com.qualcomm.hardware.limelightvision.LLResult
 import com.qualcomm.hardware.limelightvision.LLResultTypes
@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles
 import org.firstinspires.ftc.teamcode.subsystems.imu.IMUConstants
 import org.firstinspires.ftc.teamcode.utils.components.Subsystem
 import org.firstinspires.ftc.teamcode.utils.Team
-import org.firstinspires.ftc.teamcode.vision.TagIDs
+import org.firstinspires.ftc.teamcode.subsystems.vision.TagIDs
 
 /** The April tag processor for the Decode season. */
 class LimelightProcessor(
@@ -52,7 +52,7 @@ class LimelightProcessor(
   fun localizeViaTags() {}
 
   /**
-   * Checks whether the [com.qualcomm.hardware.limelightvision.LLResult] is a valid April Tag result.
+   * Checks whether the [LLResult] is a valid April Tag result.
    * @return `True` if the result is invalid, `false` otherwise.
    */
   private fun isValidAprilTagResult(result: LLResult?): Boolean {
@@ -86,7 +86,7 @@ class LimelightProcessor(
   }
 
   /**
-   * @return A [org.firstinspires.ftc.robotcore.external.navigation.Pose3D] containing vectors to the middle of the goal tag relative
+   * @return A [Pose3D] containing vectors to the middle of the goal tag relative
    * to the robot's current position if the goal tag is in sight, otherwise null.
    */
   fun getVectorsToGoalTag(): Pose3D? {

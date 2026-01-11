@@ -7,7 +7,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.utils.components.Subsystem
-import org.firstinspires.ftc.teamcode.vision.limelight.LimelightProcessor;
+import org.firstinspires.ftc.teamcode.subsystems.vision.limelight.LimelightProcessor;
 import kotlin.math.*;
 
 /** Controller for the robot's launcher.  */

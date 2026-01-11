@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.opModes.tests.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.teamcode.vision.limelight.LimelightProcessor;
+import org.firstinspires.ftc.teamcode.subsystems.vision.limelight.LimelightProcessor;
 import org.firstinspires.ftc.teamcode.opModes.OpModeGroups;
 import org.firstinspires.ftc.teamcode.season.Intake;
 import org.firstinspires.ftc.teamcode.season.Launcher;

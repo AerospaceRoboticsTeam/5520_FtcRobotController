@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.vision;
+package org.firstinspires.ftc.teamcode.subsystems.vision
 
 /** Contains constants for April tag IDs used on the Decode field. */
 object TagIDs {
