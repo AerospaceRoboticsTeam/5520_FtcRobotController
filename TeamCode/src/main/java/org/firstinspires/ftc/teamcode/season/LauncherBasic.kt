@@ -1,62 +1,78 @@
 package org.firstinspires.ftc.teamcode.season;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
-import com.qualcomm.robotcore.hardware.DcMotor.*;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import org.firstinspires.ftc.teamcode.utils.components.Subsystem;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode
+import com.qualcomm.robotcore.hardware.DcMotor.RunMode
+import com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior
+import com.qualcomm.robotcore.hardware.DcMotorEx
+import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction
+import org.firstinspires.ftc.teamcode.utils.components.Subsystem
 
 /** Controller for the robot's launcher. */
 class LauncherBasic(private val opMode: OpMode) : Subsystem {
-  private val leftLauncherMotor: DcMotorEx = opMode.hardwareMap.get(
+  companion object {
+    private const val SPIN_SENSITIVITY = 0.75;
+  }
+
+  private val leftMotor: DcMotorEx = opMode.hardwareMap.get(
     DcMotorEx::class.java,
     "leftLauncherMotor"
   );
-  private val rightLauncherMotor: DcMotorEx = opMode.hardwareMap.get(
+  private val rightMotor: DcMotorEx = opMode.hardwareMap.get(
     DcMotorEx::class.java,
     "rightLauncherMotor"
   );
+  private val gamepad = opMode.gamepad2;
 
-  private var leftLauncherMotorPower = 0.0;
-  private var rightLauncherMotorPower = 0.0;
+  private var leftMotorPower = 0.0;
+  private var rightMotorPower = 0.0;
 
   init {
-    leftLauncherMotor.zeroPowerBehavior = ZeroPowerBehavior.FLOAT;
-    rightLauncherMotor.zeroPowerBehavior = ZeroPowerBehavior.FLOAT;
+    for(motor in arrayOf<DcMotorEx>(leftMotor, rightMotor)) {
+      motor.zeroPowerBehavior = ZeroPowerBehavior.FLOAT;
+      motor.mode = RunMode.STOP_AND_RESET_ENCODER;
+      motor.mode = RunMode.RUN_USING_ENCODER;
+    }
 
-    leftLauncherMotor.mode = RunMode.STOP_AND_RESET_ENCODER;
-    rightLauncherMotor.mode = RunMode.STOP_AND_RESET_ENCODER;
-
-    leftLauncherMotor.mode = RunMode.RUN_USING_ENCODER;
-    rightLauncherMotor.mode = RunMode.RUN_USING_ENCODER;
-
-    leftLauncherMotor.direction = Direction.REVERSE;
+    leftMotor.direction = Direction.REVERSE;
+    rightMotor.direction = Direction.FORWARD;
   }
 
-  fun setMotorsPower(leftMotorPower: Double, rightMotorPower: Double) {
-    leftLauncherMotorPower = leftMotorPower;
-    rightLauncherMotorPower = rightMotorPower;
+  override fun update() {
+    val leftPower = clampPowerVal(gamepad.left_trigger * SPIN_SENSITIVITY);
+    val rightPower = clampPowerVal(gamepad.right_trigger * SPIN_SENSITIVITY);
 
-    leftLauncherMotor.power = leftMotorPower;
-    rightLauncherMotor.power = rightMotorPower;
+    setPower(leftPower, rightPower);
   }
 
-  fun stopMotors() {
-    setMotorsPower(0.0, 0.0);
+  fun setPower(leftPower: Double, rightPower: Double) {
+    leftMotorPower = leftPower;
+    rightMotorPower = rightPower;
+
+    leftMotor.power = leftPower;
+    rightMotor.power = rightPower;
+  }
+
+  fun stop() {
+    setPower(0.0, 0.0);
   }
 
   fun launch() {
-    setMotorsPower(0.5, 0.5);
+    setPower(0.5, 0.5);
+  }
+
+  fun clampPowerVal(power: Double): Double {
+    if(power > 1.0) return 1.0;
+    return power.coerceAtLeast(0.0);
   }
 
   override fun getTelemetryData() {
     opMode.telemetry.addData(
       "Left Launcher Motor Power",
-      leftLauncherMotorPower
+      leftMotorPower
     );
     opMode.telemetry.addData(
       "Right Launcher Motor Power",
-      rightLauncherMotorPower
+      rightMotorPower
     );
   }
 }
