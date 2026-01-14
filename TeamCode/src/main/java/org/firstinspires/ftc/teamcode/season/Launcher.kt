@@ -42,7 +42,7 @@ class Launcher(private val bot: OpMode, private val tagProcessor: LimelightProce
     rightLauncherMotor.mode = RunMode.RUN_USING_ENCODER;
   }
 
-  fun update() {
+  override fun update() {
     when(state) {
       LauncherStatus.START_UP, LauncherStatus.IDLE -> run {
         val cameraPos = tagProcessor.getVectorsToGoalTag();

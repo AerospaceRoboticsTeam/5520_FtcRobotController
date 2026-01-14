@@ -43,7 +43,7 @@ class LimelightProcessor(
   }
 
   /** Update the Limelight computer. */
-  fun update() {
+  override fun update() {
     val orientation: YawPitchRollAngles = imu.robotYawPitchRollAngles;
     limelight.updateRobotOrientation(orientation.getYaw(AngleUnit.DEGREES));
   }
