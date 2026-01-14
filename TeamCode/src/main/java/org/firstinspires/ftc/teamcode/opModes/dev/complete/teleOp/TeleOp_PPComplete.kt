@@ -26,34 +26,34 @@ class TeleOp_Complete : OpMode(), OpModeBase {
      * A multiplier to control the sensitivity of inputs to the drive train.
      * Originally known as boost.
      */
-    private var multiplier: Double = BASE_MULTIPLIER
+    private var multiplier: Double = BASE_MULTIPLIER;
   }
 
   /** A manager for telemetry data inside of Panels.  */
   private var telemetryManager: TelemetryManager? = null;
 
   /** The PedroPathing object that allows movement of the robot via PedroPathing methods.  */
-  private var follower: Follower? = null;
+  private lateinit var follower: Follower;
 
   /** Determines how the robot moves.  */
-  private var state: ControlState? = null;
+  private lateinit var state: ControlState;
   private var automatedDrive = false;
   private var previousRotationPos: Pose? = null;
 
-  private var llProcessor: LimelightProcessor? = null;
-  private var intake: Intake? = null;
-  private var launcher: Launcher? = null;
+  private lateinit var llProcessor: LimelightProcessor;
+  private lateinit var intake: Intake;
+  private lateinit var launcher: Launcher;
 
   override fun init() {
     llProcessor = LimelightProcessor(
       this, if(gamepad1.a) Team.RED else Team.BLUE
     );
     intake = Intake(this);
-    launcher = Launcher(this, llProcessor!!);
+    launcher = Launcher(this, llProcessor);
 
     telemetryManager = null; // TODO: Initialize telemetry manager for panels
     follower = Constants.createFollower(hardwareMap);
-    follower!!.update();
+    follower.update();
 
     state = ControlState.MANUAL;
     automatedDrive = false;
@@ -61,23 +61,23 @@ class TeleOp_Complete : OpMode(), OpModeBase {
   }
 
   override fun start() {
-    follower!!.startTeleOpDrive(true);
-    llProcessor!!.startLimelight();
+    follower.startTeleOpDrive(true);
+    llProcessor.startLimelight();
   }
 
   override fun loop() {
-    follower!!.update();
+    follower.update();
 
     when(state) {
       ControlState.MANUAL -> {
         // Switch PedroPathing to TeleOp mode
         if(automatedDrive) {
           automatedDrive = false;
-          follower!!.startTeleOpDrive(true);
+          follower.startTeleOpDrive(true);
         }
 
         // Provide new input values to pedro pathing for TeleOp driving
-        follower!!.setTeleOpDrive(
+        follower.setTeleOpDrive(
           -gamepad1.left_stick_y * multiplier,
           -gamepad1.left_stick_x * multiplier,
           -gamepad1.right_stick_x * multiplier,
@@ -89,44 +89,42 @@ class TeleOp_Complete : OpMode(), OpModeBase {
         // Switch PedroPathing to path following mode
         if(!automatedDrive) {
           automatedDrive = true;
-          follower!!.startTeleOpDrive(true);
+          follower.startTeleOpDrive(true);
         }
 
         // Get position data
-        val cameraVectorsToGoal = llProcessor!!.getVectorsToGoalTag();
+        val cameraVectorsToGoal = llProcessor.getVectorsToGoalTag();
         val vectorsToGoal = cameraVectorsToGoal; // TODO: Use ODO to get vectors to goal
         val orientation = vectorsToGoal!!.orientation;
 
         // Don't move the robot if it's already facing the goal
-        if (orientation.yaw >= -0.1 && orientation.yaw <= 0.1) return@run;
+        if(orientation.yaw >= -0.1 && orientation.yaw <= 0.1) return@run;
 
-        if(follower!!.isBusy && follower!!.currentPath != null) {
+        if(follower.isBusy && follower.currentPath != null) {
           // If the robot is in the same position, do nothing
           if(
-            follower!!.pose.x >= previousRotationPos!!.x - 0.1 &&
-            follower!!.pose.x <= previousRotationPos!!.x + 0.1 &&
-            follower!!.pose.y >= previousRotationPos!!.y - 0.1 &&
-            follower!!.pose.y <= previousRotationPos!!.y + 0.1
+            follower.pose.x >= previousRotationPos!!.x - 0.1 &&
+            follower.pose.x <= previousRotationPos!!.x + 0.1 &&
+            follower.pose.y >= previousRotationPos!!.y - 0.1 &&
+            follower.pose.y <= previousRotationPos!!.y + 0.1
           ) return@run;
 
           // Stop the follower if the robot is no longer in the same position to recalculate heading
-          follower!!.breakFollowing();
+          follower.breakFollowing();
         }
 
-        val currentPos = follower!!.pose;
+        val currentPos = follower.pose;
         previousRotationPos = currentPos;
         val targetHeading = currentPos.heading - Math.toRadians(orientation.yaw);
         val targetPos = Pose(currentPos.x, currentPos.y, targetHeading);
 
-        val turnPath = follower!!.pathBuilder()
+        val turnPath = follower.pathBuilder()
           .addPath(BezierLine(currentPos, targetPos))
           .setLinearHeadingInterpolation(currentPos.heading, targetHeading)
           .build();
 
-        follower!!.followPath(turnPath);
+        follower.followPath(turnPath);
       }
-
-      else -> Unit;
     }
 
     // Activate the drivetrain's boost if the left trigger is pressed down
@@ -142,27 +140,27 @@ class TeleOp_Complete : OpMode(), OpModeBase {
     /* TODO: Add input handlers for controlling other hardware */
 
     // Switch intake direction or turn it off
-    if(gamepad1.left_bumper) intake!!.intakeIn();
-    else if(gamepad1.right_bumper) intake!!.intakeOut();
-    else if(gamepad1.y) intake!!.intakeStop();
+    if(gamepad1.left_bumper) intake.intakeIn();
+    else if(gamepad1.right_bumper) intake.intakeOut();
+    else if(gamepad1.y) intake.intakeStop();
 
     // Activate the launcher if the right trigger is pressed down
-    if(gamepad1.right_trigger >= 0.25) launcher!!.activateMotors(
+    if(gamepad1.right_trigger >= 0.25) launcher.activateMotors(
       gamepad1.right_trigger.toDouble(),
       gamepad1.right_trigger.toDouble()
     );
-    else launcher!!.stopMotors();
+    else launcher.stopMotors();
   }
 
   override fun updateTelemetryData() {
-    telemetry.addData("Bot X pos", "%.2f", follower!!.pose.x);
-    telemetry.addData("Bot Y pos", "%.2f", follower!!.pose.y);
+    telemetry.addData("Bot X Pos", "%.2f", follower.pose.x);
+    telemetry.addData("Bot Y Pos", "%.2f", follower.pose.y);
     telemetry.addData(
-      "Bot heading", "%.2f",
-      Math.toDegrees(follower!!.pose.heading)
+      "Bot Heading", "%.2f",
+      Math.toDegrees(follower.pose.heading)
     );
-    intake!!.getTelemetryData();
-    launcher!!.getTelemetryData();
+    intake.getTelemetryData();
+    launcher.getTelemetryData();
     telemetry.update();
   }
 }

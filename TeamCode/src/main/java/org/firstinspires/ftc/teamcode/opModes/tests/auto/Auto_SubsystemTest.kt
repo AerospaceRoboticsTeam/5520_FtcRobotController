@@ -7,23 +7,23 @@ import org.firstinspires.ftc.teamcode.opModes.OpModeGroups;
 import org.firstinspires.ftc.teamcode.season.Intake;
 import org.firstinspires.ftc.teamcode.season.Launcher;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.utils.components.Subsystem;
 import org.firstinspires.ftc.teamcode.utils.Team;
+import org.firstinspires.ftc.teamcode.utils.components.OpModeBase;
 
 @Autonomous(name = "Subsystem Test", group = OpModeGroups.TEST)
-class Auto_SubsystemTest : LinearOpMode(), Subsystem {
-  private var tagProcessor: LimelightProcessor? = null;
-  private var intake: Intake? = null;
-  private var launcher: Launcher? = null;
+class Auto_SubsystemTest : LinearOpMode(), OpModeBase {
+  private lateinit var tagProcessor: LimelightProcessor;
+  private lateinit var intake: Intake;
+  private lateinit var launcher: Launcher;
 
   @Throws(InterruptedException::class)
   override fun runOpMode() {
+    // Configure state
+    tagProcessor = LimelightProcessor(this, if (gamepad1.a) Team.RED else Team.BLUE);
     intake = Intake(this);
     launcher = Launcher(this, tagProcessor);
     val pathFollower = Constants.createFollower(hardwareMap);
 
-    // Configure state
-    tagProcessor = LimelightProcessor(this, if (gamepad1.a) Team.RED else Team.BLUE);
 
     // Wait for Op mode to start and cancel startup if stopped
     waitForStart();
@@ -31,16 +31,16 @@ class Auto_SubsystemTest : LinearOpMode(), Subsystem {
 
     // Run main loop
     while (opModeIsActive() && !isStopRequested) {
-      tagProcessor!!.findArtifactPattern();
+      tagProcessor.findArtifactPattern();
 
-      getTelemetryData();
+      updateTelemetryData();
     }
   }
 
-  override fun getTelemetryData() {
-    tagProcessor!!.getTelemetryData();
-    intake!!.getTelemetryData();
-    launcher!!.getTelemetryData();
+  override fun updateTelemetryData() {
+    tagProcessor.getTelemetryData();
+    intake.getTelemetryData();
+    launcher.getTelemetryData();
     telemetry.update();
   }
 }
