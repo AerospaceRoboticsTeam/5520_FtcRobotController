@@ -15,6 +15,8 @@ class LightController(private val bot: OpMode) : Subsystem {
     setMode(LightMode.OFF);
   }
 
+  override fun update() {}
+
   fun setMode(mode: LightMode) {
     state.modeState = mode;
     light.position = state.getModeValue(mode);

@@ -20,6 +20,8 @@ class MagMotor(private val opMode: OpMode) : Subsystem {
     magMotor.mode = RunMode.RUN_USING_ENCODER;
   }
 
+  override fun update() {}
+
   fun stop() {
     magMotorPower = 0.0;
     magMotor.power = 0.0;

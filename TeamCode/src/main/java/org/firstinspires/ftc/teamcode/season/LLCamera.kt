@@ -18,6 +18,8 @@ class LLCamera(opMode: OpMode, private val llProcessor: LimelightProcessor) : Su
     "limeLightCameraServo"
   );
 
+  override fun update() {}
+
   private val cameraAngle = 0.0;
   private val lastAngle = 0.0;
 
