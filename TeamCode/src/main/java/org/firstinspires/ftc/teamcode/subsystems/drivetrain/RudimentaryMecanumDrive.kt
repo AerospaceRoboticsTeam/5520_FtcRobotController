@@ -19,6 +19,9 @@ class RudimentaryMecanumDrive(
     private const val X_SENSITIVITY = 1.0; // Originally: 1.3
     private const val Y_SENSITIVITY = 1.0; // Originally: 0.75
     private const val RX_SENSITIVITY = 1.0; // Originally: 0.75
+
+    private const val BASE_BOOST = 0.5;
+    private const val BOOST = 1.0;
   }
 
   /** Left joystick x value. */
@@ -53,8 +56,9 @@ class RudimentaryMecanumDrive(
   /** Right back motor power. */
   var rightBackPower = 0.0
     private set;
-  private var boost = 0.5;
+  var boost = BASE_BOOST;
 
+  private val gamepad = opMode.gamepad1;
   private val leftFront: DcMotor = opMode.hardwareMap.dcMotor.get(
     DrivetrainConstants.LEFT_FRONT_MOTOR
   );
@@ -92,18 +96,21 @@ class RudimentaryMecanumDrive(
   }
 
   /** Calculate motor powers based on controller 1's input and make the robot move. */
-  fun drive() {
+  override fun update() {
+    // Activate the drivetrain's boost if the left trigger is pressed down
+    boost = if(gamepad.left_trigger >= 0.25) BOOST else BASE_BOOST;
+
     // Get controller 1's input and apply control sensitivity
-    y = -(opMode.gamepad1.left_stick_y) * Y_SENSITIVITY;
-    x = opMode.gamepad1.left_stick_x * X_SENSITIVITY;
-    rx = opMode.gamepad1.right_stick_x * RX_SENSITIVITY;
+    y = gamepad.left_stick_y * Y_SENSITIVITY;
+    x = gamepad.left_stick_x * X_SENSITIVITY;
+    rx = gamepad.right_stick_x * RX_SENSITIVITY;
 
     // Get the robot's heading (yaw) from the IMU
-    botHeading = imu.robotYawPitchRollAngles.getYaw(AngleUnit.RADIANS);
+    botHeading = -imu.robotYawPitchRollAngles.getYaw(AngleUnit.RADIANS);
 
     // Translate to robot heading from field heading for motor values
-    rotX = x * cos(-botHeading) - y * sin(-botHeading);
-    rotY = x * sin(-botHeading) + y * cos(-botHeading);
+    rotX = x * cos(botHeading) + y * sin(botHeading);
+    rotY = x * sin(botHeading) - y * cos(botHeading);
 
     // Denominator is the largest motor power
     val denominator = max(abs(rotY) + abs(rotX) + abs(rx), 1.0);
@@ -117,11 +124,6 @@ class RudimentaryMecanumDrive(
     leftBack.power = leftBackPower * boost;
     rightFront.power = rightFrontPower * boost;
     rightBack.power = rightBackPower * boost;
-  }
-
-  /** Set motor's boost power. */
-  fun setBoost(x: Double) {
-    boost = x;
   }
 
   @SuppressLint("DefaultLocale")
