@@ -16,7 +16,7 @@ class TeleOp_BasicDrivetrain : OpMode(), OpModeBase {
     private const val BOOST_MULTIPLIER = 1.0;
   }
   /** The PedroPathing object that allows movement of the robot via PedroPathing methods. */
-  private var follower: Follower? = null;
+  private lateinit var follower: Follower;
 
   /**
    * A multiplier to control the sensitivity of inputs to the drive train.
@@ -26,18 +26,18 @@ class TeleOp_BasicDrivetrain : OpMode(), OpModeBase {
 
   override fun init() {
     follower = Constants.createFollower(hardwareMap);
-    follower!!.update();
+    follower.update();
   }
 
   override fun start() {
-    follower!!.startTeleOpDrive(true);
+    follower.startTeleOpDrive(true);
   }
 
   override fun loop() {
-    follower!!.update();
+    follower.update();
 
     // Provide new input values to pedro pathing for TeleOp driving
-    follower!!.setTeleOpDrive(
+    follower.setTeleOpDrive(
       -gamepad1.left_stick_y * multiplier,
       -gamepad1.left_stick_x * multiplier,
       -gamepad1.right_stick_x * multiplier,
@@ -53,11 +53,12 @@ class TeleOp_BasicDrivetrain : OpMode(), OpModeBase {
   }
 
   override fun updateTelemetryData() {
-    telemetry.addData("Bot X pos", "%.2f", follower!!.pose.x);
-    telemetry.addData("Bot Y pos", "%.2f", follower!!.pose.y);
+    telemetry.addData("", follower)
+    telemetry.addData("Bot X Pos", "%.2f", follower.pose.x);
+    telemetry.addData("Bot Y Pos", "%.2f", follower.pose.y);
     telemetry.addData(
-      "Bot heading", "%.2f",
-      Math.toDegrees(follower!!.pose.pose.heading)
+      "Bot Heading", "%.2f",
+      Math.toDegrees(follower.pose.heading)
     );
     telemetry.update();
   }
