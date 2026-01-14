@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode.season;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotorSimple.*;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotor.*;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode
+import com.qualcomm.robotcore.hardware.DcMotor
+import com.qualcomm.robotcore.hardware.DcMotor.*
+import com.qualcomm.robotcore.hardware.DcMotorSimple.*
 import org.firstinspires.ftc.teamcode.utils.components.Subsystem
-import kotlin.math.abs;
+import kotlin.math.abs
 
 /** Controller for intake located at the front of the robot.  */
 class Intake(private val bot: OpMode) : Subsystem {
@@ -15,11 +15,19 @@ class Intake(private val bot: OpMode) : Subsystem {
   }
 
   private val intakeMotor: DcMotor = bot.hardwareMap.dcMotor.get("intakeMotor");
+  private val gamepad = bot.gamepad2;
 
   init {
     intakeMotor.mode = RunMode.STOP_AND_RESET_ENCODER;
     intakeMotor.mode = RunMode.RUN_WITHOUT_ENCODER;
     intakeMotor.direction = Direction.FORWARD;
+  }
+
+  override fun update() {
+    // Switch intake direction or turn it off
+    if(gamepad.right_bumper) intakeIn();
+    else if(gamepad.left_bumper) intakeOut();
+    else if(gamepad.square) intakeStop();
   }
 
   fun intakeIn() {
