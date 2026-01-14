@@ -33,7 +33,7 @@ public class TeleOp_Dev3 extends LinearOpMode {
 		// Run main loop
 		while(opModeIsActive() && !isStopRequested()) {
 			// Updates the drivetrain with the game controller's current values once every loop
-			mecanumDrive.drive();
+			mecanumDrive.update();
 			magMotor.run();
 
 			// Activate the drivetrain's boost if the left trigger is pressed down
@@ -55,7 +55,7 @@ public class TeleOp_Dev3 extends LinearOpMode {
 			leftMotor = checkLauncherPowerVals(leftMotor);
 			rightMotor = checkLauncherPowerVals(rightMotor);
 
-			launcher.setMotorsPower(-leftMotor, rightMotor);
+			launcher.setPower(-leftMotor, rightMotor);
 
 			/* TODO: Add input handlers for controlling other hardware */
 

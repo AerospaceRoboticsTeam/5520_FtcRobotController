@@ -6,9 +6,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.opModes.OpModeGroups;
 import org.firstinspires.ftc.teamcode.season.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.drivetrain.RudimentaryMecanumDrive;
+import org.firstinspires.ftc.teamcode.utils.components.OpModeBase;
 
 @TeleOp(name = "Intake Test", group = OpModeGroups.TEST)
-public class TeleOp_IntakeTest extends LinearOpMode {
+public class TeleOp_IntakeTest extends LinearOpMode implements OpModeBase {
 	private RudimentaryMecanumDrive mecanumDrive;
 	private Intake intake;
 
@@ -25,10 +26,10 @@ public class TeleOp_IntakeTest extends LinearOpMode {
 		// Run main loop
 		while(opModeIsActive() && !isStopRequested()) {
 			// Updates the drivetrain with the game controller's current values once every loop
-			mecanumDrive.drive();
+			mecanumDrive.update();
 
 			// Activate the drivetrain's boost if the left trigger is pressed down
-			if ((gamepad1.left_trigger >= 0.25)) mecanumDrive.setBoost(1);
+			if(gamepad1.left_trigger >= 0.25) mecanumDrive.setBoost(1);
 			else mecanumDrive.setBoost(0.5);
 
 			// Switch intake direction or turn it off
@@ -36,10 +37,14 @@ public class TeleOp_IntakeTest extends LinearOpMode {
 			else if(gamepad1.right_bumper) intake.intakeOut();
 			else if(gamepad1.y) intake.intakeStop();
 
-			// Get new telemetry data and push it to the driver station
-			mecanumDrive.getTelemetryData();
-			intake.getTelemetryData();
-			telemetry.update();
+			updateTelemetryData();
 		}
+	}
+
+	@Override
+	public void updateTelemetryData() {
+		mecanumDrive.getTelemetryData();
+		intake.getTelemetryData();
+		telemetry.update();
 	}
 }
