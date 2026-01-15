@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.season;
 
+import com.bylazar.configurables.annotations.Configurable
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import com.qualcomm.robotcore.hardware.DcMotor.RunMode
 import com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior
@@ -7,10 +8,11 @@ import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction
 import org.firstinspires.ftc.teamcode.utils.components.Subsystem
 
+@Configurable
 /** Controller for the robot's launcher. */
 class LauncherBasic(private val opMode: OpMode) : Subsystem {
   companion object {
-    private const val SPIN_SENSITIVITY = 0.75;
+    private var SPIN_SENSITIVITY = 0.25;
   }
 
   private val leftMotor: DcMotorEx = opMode.hardwareMap.get(
@@ -38,8 +40,10 @@ class LauncherBasic(private val opMode: OpMode) : Subsystem {
   }
 
   override fun update() {
-    val leftPower = clampPowerVal(gamepad.left_trigger * SPIN_SENSITIVITY);
-    val rightPower = clampPowerVal(gamepad.right_trigger * SPIN_SENSITIVITY);
+      val leftPower =
+        if(!gamepad.triangle) clampPowerVal(gamepad.left_trigger * SPIN_SENSITIVITY) else -0.25;
+      val rightPower =
+        if(!gamepad.triangle) clampPowerVal(gamepad.right_trigger * SPIN_SENSITIVITY) else -0.25;
 
     setPower(leftPower, rightPower);
   }
