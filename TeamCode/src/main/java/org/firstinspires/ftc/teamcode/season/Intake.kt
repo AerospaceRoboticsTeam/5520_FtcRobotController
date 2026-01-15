@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.season;
 
+import com.bylazar.configurables.annotations.Configurable
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotor.*
@@ -7,20 +8,21 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple.*
 import org.firstinspires.ftc.teamcode.utils.components.Subsystem
 import kotlin.math.abs
 
+@Configurable
 /** Controller for intake located at the front of the robot.  */
-class Intake(private val bot: OpMode) : Subsystem {
+class Intake(private val opMode: OpMode) : Subsystem {
   companion object {
-    private const val IN_POWER = 0.25;
-    private const val OUT_POWER = -0.25;
+    private var IN_POWER = 1.0;
+    private var OUT_POWER = -1.0;
   }
 
-  private val intakeMotor: DcMotor = bot.hardwareMap.dcMotor.get("intakeMotor");
-  private val gamepad = bot.gamepad2;
+  private val intakeMotor: DcMotor = opMode.hardwareMap.dcMotor.get("intakeMotor");
+  private val gamepad = opMode.gamepad2;
 
   init {
     intakeMotor.mode = RunMode.STOP_AND_RESET_ENCODER;
     intakeMotor.mode = RunMode.RUN_WITHOUT_ENCODER;
-    intakeMotor.direction = Direction.FORWARD;
+    intakeMotor.direction = Direction.REVERSE;
   }
 
   override fun update() {
@@ -55,10 +57,10 @@ class Intake(private val bot: OpMode) : Subsystem {
   }
 
   override fun getTelemetryData() {
-    bot.telemetry.addData(
+    opMode.telemetry.addData(
       "Intake state",
       if(intakeMotor.power > 0) "IN" else "OUT"
     );
-    bot.telemetry.addData("Intake power", intakeMotor.power);
+    opMode.telemetry.addData("Intake power", intakeMotor.power);
   }
 }
