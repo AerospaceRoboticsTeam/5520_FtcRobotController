@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.subsystems.drivetrain;
 
+import com.bylazar.configurables.annotations.Configurable
 import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
 
+@Configurable
 object DrivetrainConstants {
   const val LEFT_FRONT_MOTOR = "leftFrontMotor";
   const val LEFT_BACK_MOTOR = "leftBackMotor";
