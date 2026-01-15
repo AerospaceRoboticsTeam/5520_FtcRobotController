@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems.drivetrain;
 
 import android.annotation.SuppressLint;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotor.*;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -13,7 +13,7 @@ import kotlin.math.*;
 /** A mecanum drive train for driving the robot.  */
 class RudimentaryMecanumDrive(
   /** Linear Op Mode instance. */
-  private val opMode: LinearOpMode
+  private val opMode: OpMode
 ) : Subsystem {
   companion object {
     private const val X_SENSITIVITY = 1.0; // Originally: 1.3
