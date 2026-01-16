@@ -19,6 +19,8 @@ class TeleOp_OdometryTest : OpMode(), OpModeBase {
 
   override fun loop() {
     pinpoint.update();
+
+    updateTelemetryData();
   }
 
   override fun updateTelemetryData() {
