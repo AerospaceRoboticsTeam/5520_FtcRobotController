@@ -45,12 +45,12 @@ class Magazine(private val opMode: OpMode) : Subsystem {
     // Move upper servo
     if(gamepad.dpad_up) moveUpUpper();
     else if(gamepad.dpad_right) moveDownUpper();
-    else stopUpper();
+    else if(!gamepad.cross && !gamepad.circle) stopUpper();
 
     // Move lower servo
     if(gamepad.dpad_down) moveUpLower();
     else if(gamepad.dpad_left) moveDownLower();
-    else stopLower();
+    else if(!gamepad.cross && gamepad.circle) stopLower();
   }
 
   fun moveUp() {
