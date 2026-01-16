@@ -29,7 +29,7 @@ class Intake(private val opMode: OpMode) : Subsystem {
     // Switch intake direction or turn it off
     if(gamepad.right_bumper) intakeIn();
     else if(gamepad.left_bumper) intakeOut();
-    else if(gamepad.square) intakeStop();
+    else intakeStop();
   }
 
   fun intakeIn() {
