@@ -8,7 +8,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.season.Intake;
-import org.firstinspires.ftc.teamcode.season.Launcher;
+import org.firstinspires.ftc.teamcode.season.launcher.Launcher;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.utils.Team;
 import org.firstinspires.ftc.teamcode.utils.components.OpModeBase

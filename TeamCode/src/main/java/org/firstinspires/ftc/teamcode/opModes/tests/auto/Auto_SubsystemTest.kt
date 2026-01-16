@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.vision.limelight.LimelightProcessor;
 import org.firstinspires.ftc.teamcode.opModes.OpModeGroups;
 import org.firstinspires.ftc.teamcode.season.Intake;
-import org.firstinspires.ftc.teamcode.season.Launcher;
+import org.firstinspires.ftc.teamcode.season.launcher.Launcher;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.utils.Team;
 import org.firstinspires.ftc.teamcode.utils.components.OpModeBase;

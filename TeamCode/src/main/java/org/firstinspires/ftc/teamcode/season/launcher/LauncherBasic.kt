@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.season;
+package org.firstinspires.ftc.teamcode.season.launcher
 
 import com.bylazar.configurables.annotations.Configurable
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor.RunMode
 import com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction
+import org.firstinspires.ftc.teamcode.season.LightController
+import org.firstinspires.ftc.teamcode.season.LightMode
 import org.firstinspires.ftc.teamcode.utils.components.Subsystem
 
 @Configurable
@@ -47,21 +49,23 @@ class LauncherBasic(
 
     leftMotor.direction = Direction.REVERSE;
     rightMotor.direction = Direction.FORWARD;
+    lightController.setMode(LightMode.ORANGE);
   }
 
   override fun update() {
+    // Toggle between SHORT and LONG distance powers
     if(!gamepad.squareWasPressed() && gamepad.square) {
       launcherStatus = when(launcherStatus) {
         LauncherBasicStatus.SHORT -> {
           lightController.setMode(LightMode.ORANGE);
           basePowerValue = LONG_DISTANCE_POWER;
           LauncherBasicStatus.LONG;
-        };
+        }
         LauncherBasicStatus.LONG -> {
           lightController.setMode(LightMode.AQUA);
           basePowerValue = SHORT_DISTANCE_POWER;
           LauncherBasicStatus.SHORT;
-        };
+        }
       }
     }
 
@@ -76,13 +80,13 @@ class LauncherBasic(
       if(!leftMotorActive) 0.0;
       else if(!gamepad.triangle) clampPowerVal(
         basePowerValue + gamepad.left_stick_y * (1.0 - basePowerValue) * SPIN_SENSITIVITY
-      )
+      );
       else -0.25;
     val rightPower =
       if(!rightMotorActive) 0.0;
       else if(!gamepad.triangle) clampPowerVal(
         basePowerValue + gamepad.right_stick_y * (1.0 - basePowerValue) * SPIN_SENSITIVITY
-      )
+      );
       else -0.25;
 
     setPower(leftPower, rightPower);

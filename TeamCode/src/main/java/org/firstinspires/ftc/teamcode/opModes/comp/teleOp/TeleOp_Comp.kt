@@ -1,13 +1,12 @@
-package org.firstinspires.ftc.teamcode.opModes.comp
+package org.firstinspires.ftc.teamcode.opModes.comp.teleOp
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.opModes.OpModeGroups
 import org.firstinspires.ftc.teamcode.season.Intake
-import org.firstinspires.ftc.teamcode.season.LauncherBasic
 import org.firstinspires.ftc.teamcode.season.LightController
-import org.firstinspires.ftc.teamcode.season.LightMode
 import org.firstinspires.ftc.teamcode.season.Magazine
+import org.firstinspires.ftc.teamcode.season.launcher.LauncherBasic
 import org.firstinspires.ftc.teamcode.subsystems.drivetrain.PPMecanumDrive
 import org.firstinspires.ftc.teamcode.utils.components.OpModeBase
 
@@ -42,6 +41,7 @@ class TeleOp_Comp : OpMode(), OpModeBase {
 
   override fun updateTelemetryData() {
     mecanumDrive.getTelemetryData();
+    lightController.getTelemetryData();
     intake.getTelemetryData();
     magazine.getTelemetryData();
     launcher.getTelemetryData();
