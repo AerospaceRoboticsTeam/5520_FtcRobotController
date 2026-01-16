@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.opModes.tests.teleOp
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
 import org.firstinspires.ftc.teamcode.libs.goBilda.GoBildaPinpointDriver
+import org.firstinspires.ftc.teamcode.opModes.OpModeGroups
 import org.firstinspires.ftc.teamcode.utils.components.OpModeBase
 
+@TeleOp(name = "Odometry Test", group = OpModeGroups.TEST)
 class TeleOp_OdometryTest : OpMode(), OpModeBase {
   private lateinit var pinpoint: GoBildaPinpointDriver;
 
