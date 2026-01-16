@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.opModes.OpModeGroups;
 import org.firstinspires.ftc.teamcode.season.LauncherBasic;
+import org.firstinspires.ftc.teamcode.season.LightController;
 import org.firstinspires.ftc.teamcode.subsystems.drivetrain.RudimentaryMecanumDrive;
 import org.firstinspires.ftc.teamcode.season.MagMotor;
 import org.firstinspires.ftc.teamcode.season.Intake;
@@ -24,7 +25,7 @@ public class TeleOp_Dev2 extends LinearOpMode {
 		// Initialize mechanisms
 		mecanumDrive = new RudimentaryMecanumDrive(this);
 		intake = new Intake(this);
-		launcher = new LauncherBasic(this);
+		launcher = new LauncherBasic(this, new LightController(this));
 		magMotor = new MagMotor(this);
 
 		// Wait for Op mode to start and cancel startup if stopped

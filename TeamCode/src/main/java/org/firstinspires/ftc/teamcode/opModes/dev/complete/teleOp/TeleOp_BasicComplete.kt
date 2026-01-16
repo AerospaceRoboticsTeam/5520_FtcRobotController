@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.opModes.OpModeGroups
 import org.firstinspires.ftc.teamcode.season.Intake
 import org.firstinspires.ftc.teamcode.season.LauncherBasic
+import org.firstinspires.ftc.teamcode.season.LightController
 import org.firstinspires.ftc.teamcode.season.Magazine
 import org.firstinspires.ftc.teamcode.subsystems.drivetrain.RudimentaryMecanumDrive
 import org.firstinspires.ftc.teamcode.utils.components.OpModeBase
@@ -22,7 +23,7 @@ class TeleOp_BasicComplete : LinearOpMode(), OpModeBase {
     mecanumDrive = RudimentaryMecanumDrive(this);
     intake = Intake(this);
     magazine = Magazine(this);
-    launcher = LauncherBasic(this);
+    launcher = LauncherBasic(this, LightController(this));
 
     // Wait for Op mode to start and cancel startup if stopped
     waitForStart();
