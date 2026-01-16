@@ -10,9 +10,14 @@ import org.firstinspires.ftc.teamcode.utils.components.Subsystem
 
 @Configurable
 /** Controller for the robot's launcher. */
-class LauncherBasic(private val opMode: OpMode) : Subsystem {
+class LauncherBasic(
+  private val opMode: OpMode,
+  private val lightController: LightController
+) : Subsystem {
   companion object {
-    private var SPIN_SENSITIVITY = 0.25;
+    private var SPIN_SENSITIVITY = 0.2;
+    private var SHORT_DISTANCE_POWER = 0.3;
+    private var LONG_DISTANCE_POWER = 0.6;
   }
 
   private val leftMotor: DcMotorEx = opMode.hardwareMap.get(
@@ -24,9 +29,14 @@ class LauncherBasic(private val opMode: OpMode) : Subsystem {
     "rightLauncherMotor"
   );
   private val gamepad = opMode.gamepad2;
+  private var leftTriggerWasPressed = false;
 
+  private var basePowerValue = SHORT_DISTANCE_POWER;
   private var leftMotorPower = 0.0;
   private var rightMotorPower = 0.0;
+  private var leftMotorActive = false;
+  private var rightMotorActive = false;
+  private var launcherStatus = LauncherBasicStatus.SHORT;
 
   init {
     for(motor in arrayOf<DcMotorEx>(leftMotor, rightMotor)) {
@@ -40,10 +50,40 @@ class LauncherBasic(private val opMode: OpMode) : Subsystem {
   }
 
   override fun update() {
-      val leftPower =
-        if(!gamepad.triangle) clampPowerVal(gamepad.left_trigger * SPIN_SENSITIVITY) else -0.25;
-      val rightPower =
-        if(!gamepad.triangle) clampPowerVal(gamepad.right_trigger * SPIN_SENSITIVITY) else -0.25;
+    if(!gamepad.squareWasPressed() && gamepad.square) {
+      launcherStatus = when(launcherStatus) {
+        LauncherBasicStatus.SHORT -> {
+          lightController.setMode(LightMode.ORANGE);
+          basePowerValue = LONG_DISTANCE_POWER;
+          LauncherBasicStatus.LONG;
+        };
+        LauncherBasicStatus.LONG -> {
+          lightController.setMode(LightMode.AQUA);
+          basePowerValue = SHORT_DISTANCE_POWER;
+          LauncherBasicStatus.SHORT;
+        };
+      }
+    }
+
+    if(!leftTriggerWasPressed && gamepad.left_trigger >= 0.1) {
+      leftTriggerWasPressed = true;
+      leftMotorActive = !leftMotorActive;
+      rightMotorActive = !rightMotorActive;
+    }
+    else leftTriggerWasPressed = false;
+
+    val leftPower =
+      if(!leftMotorActive) 0.0;
+      else if(!gamepad.triangle) clampPowerVal(
+        basePowerValue + gamepad.left_stick_y * (1.0 - basePowerValue) * SPIN_SENSITIVITY
+      )
+      else -0.25;
+    val rightPower =
+      if(!rightMotorActive) 0.0;
+      else if(!gamepad.triangle) clampPowerVal(
+        basePowerValue + gamepad.right_stick_y * (1.0 - basePowerValue) * SPIN_SENSITIVITY
+      )
+      else -0.25;
 
     setPower(leftPower, rightPower);
   }
@@ -78,5 +118,13 @@ class LauncherBasic(private val opMode: OpMode) : Subsystem {
       "Right Launcher Motor Power",
       rightMotorPower
     );
+    opMode.telemetry.addData("Left Launcher Motor Is Active", leftMotorActive);
+    opMode.telemetry.addData("Right Launcher Motor Is Active", rightMotorActive);
+    opMode.telemetry.addData("Launcher Status", launcherStatus);
   }
+}
+
+internal enum class LauncherBasicStatus {
+  SHORT,
+  LONG
 }
