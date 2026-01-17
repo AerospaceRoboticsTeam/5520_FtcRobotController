@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.pedroPathing
 
+import com.pedropathing.control.FilteredPIDFCoefficients
 import com.pedropathing.follower.Follower
 import com.pedropathing.follower.FollowerConstants
 import com.pedropathing.ftc.FollowerBuilder
@@ -11,17 +12,21 @@ import com.qualcomm.robotcore.hardware.HardwareMap
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
 import org.firstinspires.ftc.teamcode.subsystems.drivetrain.DrivetrainConstants
 
+/**
+ * Consist of values from the automatic, PID, and centripetal tuners.
+ * <p>For more details, see <a href="https://pedropathing.com/docs/pathing/constants">
+ * https://pedropathing.com/docs/pathing/constants</a>.
+ */
+val followerConstants: FollowerConstants = FollowerConstants()
+  .mass(14.5) // TODO: Set this to the robot's weight when building is complete in KG
+  .drivePIDFCoefficients(
+    FilteredPIDFCoefficients(1.0, 1.0, 1.0, 1.0, 1.0)
+  )
+  .useSecondaryTranslationalPIDF(true)
+  .useSecondaryHeadingPIDF(true)
+  .useSecondaryDrivePIDF(true);
+
 object Constants {
-  /**
-   * Consist of values from the automatic, PID, and centripetal tuners.
-   * <p>For more details, see <a href="https://pedropathing.com/docs/pathing/constants">
-   * https://pedropathing.com/docs/pathing/constants</a>.
-   */
-  val followerConstants: FollowerConstants = FollowerConstants()
-    .mass(14.5) // TODO: Set this to the robot's weight when building is complete in KG
-    .useSecondaryTranslationalPIDF(true)
-    .useSecondaryHeadingPIDF(true)
-    .useSecondaryDrivePIDF(true);
 
   /**
    * Contain constants specific to your drivetrain type. For example, mecanum drivetrain
@@ -30,7 +35,7 @@ object Constants {
    * https://pedropathing.com/docs/pathing/constants</a>.
    */
   val driveConstants: MecanumConstants = MecanumConstants()
-    .maxPower(1.0) // NOTE: Must be a value between 0 and 1
+    .maxPower(0.75) // NOTE: Must be a value between 0 and 1
     .leftFrontMotorName(DrivetrainConstants.LEFT_FRONT_MOTOR)
     .leftRearMotorName(DrivetrainConstants.LEFT_BACK_MOTOR)
     .rightFrontMotorName(DrivetrainConstants.RIGHT_FRONT_MOTOR)
@@ -61,7 +66,12 @@ object Constants {
    * <p>For more details, see <a href="https://pedropathing.com/docs/pathing/constants">
    * https://pedropathing.com/docs/pathing/constants</a>.
    */
-  val pathConstraints: PathConstraints = PathConstraints(0.99, 100.0, 1.0, 1.0);
+  val pathConstraints: PathConstraints = PathConstraints(
+    0.99,
+    100.0,
+    1.0,
+    1.0
+  );
 
   @JvmStatic
   fun createFollower(hardwareMap: HardwareMap): Follower {
