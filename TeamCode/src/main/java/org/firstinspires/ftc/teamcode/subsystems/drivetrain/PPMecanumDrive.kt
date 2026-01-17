@@ -37,7 +37,7 @@ class PPMecanumDrive(private val opMode: OpMode, startPos: Pose) : Subsystem {
     follower.update();
 
     multiplier = if(gamepad.left_trigger >= 0.25) BOOST_MULTIPLIER else BASE_MULTIPLIER;
-    if(!gamepad.crossWasPressed() && gamepad.cross) isRobotCentric = !isRobotCentric;
+    if(gamepad.crossWasPressed()) isRobotCentric = !isRobotCentric;
 
     // Provide new input values to pedro pathing for TeleOp driving
     follower.setTeleOpDrive(

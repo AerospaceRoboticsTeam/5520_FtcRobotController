@@ -54,7 +54,7 @@ class LauncherBasic(
 
   override fun update() {
     // Toggle between SHORT and LONG distance powers
-    if(!gamepad.squareWasPressed() && gamepad.square) {
+    if(gamepad.squareWasPressed()) {
       launcherStatus = when(launcherStatus) {
         LauncherBasicStatus.SHORT -> {
           lightController.setMode(LightMode.ORANGE);
