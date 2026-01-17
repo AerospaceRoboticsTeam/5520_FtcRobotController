@@ -8,8 +8,8 @@ import org.firstinspires.ftc.teamcode.libs.goBilda.GoBildaPinpointDriver
 import org.firstinspires.ftc.teamcode.opModes.OpModeGroups
 import org.firstinspires.ftc.teamcode.utils.components.OpModeBase
 
-@TeleOp(name = "Odometry Test", group = OpModeGroups.TEST)
-class TeleOp_OdometryTest : OpMode(), OpModeBase {
+@TeleOp(name = "Basic Odometry Test", group = OpModeGroups.TEST)
+class TeleOp_BasicOdometryTest : OpMode(), OpModeBase {
   private lateinit var pinpoint: GoBildaPinpointDriver;
 
   override fun init() {
