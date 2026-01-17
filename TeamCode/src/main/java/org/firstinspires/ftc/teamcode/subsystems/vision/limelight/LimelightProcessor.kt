@@ -22,8 +22,6 @@ class LimelightProcessor(
     IMU::class.java,
     IMUConstants.CONFIG_NAME
   );
-
-  // Initialize Limelight
   private val limelight: Limelight3A = opMode.hardwareMap.get(
     Limelight3A::class.java,
     "limelight"
@@ -33,6 +31,8 @@ class LimelightProcessor(
   var artifactPattern = 0;
 
   init {
+    imu.initialize(IMUConstants.PARAMETERS);
+
     limelight.setPollRateHz(100); // This makes the Limelight computer refresh 100 times per second
     limelight.pipelineSwitch(LimelightPipelines.APRILTAG_PIPELINE);
   }
@@ -98,8 +98,8 @@ class LimelightProcessor(
 
     for(tag in tags!!) {
       val tagID: Int = tag.fiducialId;
-      if (team == Team.BLUE && tagID == TagIDs.BLUE_TAG) return tag.robotPoseTargetSpace;
-      else if (team == Team.RED && tagID == TagIDs.RED_TAG) return tag.robotPoseTargetSpace;
+      if(team == Team.BLUE && tagID == TagIDs.BLUE_TAG) return tag.robotPoseTargetSpace;
+      else if(team == Team.RED && tagID == TagIDs.RED_TAG) return tag.robotPoseTargetSpace;
     }
 
     return null;
