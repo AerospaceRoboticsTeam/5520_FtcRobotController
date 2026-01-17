@@ -57,12 +57,12 @@ class LauncherBasic(
     if(gamepad.squareWasPressed()) {
       launcherStatus = when(launcherStatus) {
         LauncherBasicStatus.SHORT -> {
-          lightController.setMode(LightMode.ORANGE);
+          lightController.setMode(LightMode.AQUA);
           basePowerValue = LONG_DISTANCE_POWER;
           LauncherBasicStatus.LONG;
         }
         LauncherBasicStatus.LONG -> {
-          lightController.setMode(LightMode.AQUA);
+          lightController.setMode(LightMode.ORANGE);
           basePowerValue = SHORT_DISTANCE_POWER;
           LauncherBasicStatus.SHORT;
         }
