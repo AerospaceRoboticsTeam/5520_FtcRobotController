@@ -20,7 +20,7 @@ class PPMecanumDrive(private val opMode: OpMode, startPos: Pose) : Subsystem {
    * Originally known as boost.
    */
   private var multiplier = BASE_MULTIPLIER;
-  private var isRobotCentric = false;
+  private var isRobotCentric = true;
 
   init {
     follower.update();
