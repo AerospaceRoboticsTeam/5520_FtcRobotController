@@ -48,8 +48,8 @@ object Constants {
    * https://pedropathing.com/docs/pathing/constants</a>.
    */
   val localizerConstants: PinpointConstants = PinpointConstants()
-    .strafePodX(0.5)
-    .forwardPodY(-5.0)
+    .strafePodX(-15.0)
+    .forwardPodY(-9.0)
     .distanceUnit(DistanceUnit.CM)
     .hardwareMapName("pinpoint")
     .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD)
