@@ -4,7 +4,6 @@ import com.pedropathing.follower.Follower
 import com.pedropathing.geometry.BezierLine
 import com.pedropathing.geometry.Pose
 import com.pedropathing.paths.Path
-import com.qualcomm.hardware.bosch.BNO055IMU
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import org.firstinspires.ftc.teamcode.opModes.OpModeGroups
@@ -34,8 +33,6 @@ class Auto_Comp : OpMode(), OpModeBase {
   }
 
   override fun start() {
-    follower.update();
-
     val forwardPath = Path(BezierLine(
       Pose(0.0, 0.0, 0.0),
       Pose(39.37, 0.0, 0.0)
@@ -51,9 +48,13 @@ class Auto_Comp : OpMode(), OpModeBase {
   }
 
   override fun updateTelemetryData() {
+    val targetPos = follower.currentPath.endPose();
+    val targetPoseCords = "(${targetPos.x}, ${targetPos.y}, ${Math.toDegrees(targetPos.heading)})";
+
     telemetry.addData("X Pos", follower.pose.x);
     telemetry.addData("Y Pos", follower.pose.y);
     telemetry.addData("Heading", Math.toDegrees(follower.pose.heading));
+    telemetry.addData("Target Pos", targetPoseCords);
     lightController.getTelemetryData();
     intake.getTelemetryData();
     magazine.getTelemetryData();
