@@ -46,6 +46,8 @@ class Auto_Comp : OpMode(), OpModeBase {
 
   override fun loop() {
     follower.update();
+
+    updateTelemetryData();
   }
 
   override fun updateTelemetryData() {
