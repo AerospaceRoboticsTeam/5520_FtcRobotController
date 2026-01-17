@@ -18,8 +18,8 @@ class LauncherBasic(
 ) : Subsystem {
   companion object {
     private var SPIN_SENSITIVITY = 0.2;
-    private var SHORT_DISTANCE_POWER = 0.3;
-    private var LONG_DISTANCE_POWER = 0.6;
+    private var SHORT_DISTANCE_POWER = 0.325;
+    private var LONG_DISTANCE_POWER = 0.425;
   }
 
   private val leftMotor: DcMotorEx = opMode.hardwareMap.get(

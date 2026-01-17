@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.utils.components.Subsystem
 @Configurable
 class Magazine(private val opMode: OpMode) : Subsystem {
   companion object {
-    var POWER = 0.5;
+    var POWER = 0.75;
 
     var UPPER_SERVO_DIRECTION = Direction.FORWARD;
     var LOWER_SERVO_DIRECTION = Direction.REVERSE;
