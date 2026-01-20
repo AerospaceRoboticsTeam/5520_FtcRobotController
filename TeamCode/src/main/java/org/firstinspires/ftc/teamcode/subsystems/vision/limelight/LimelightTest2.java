@@ -15,6 +15,8 @@ import com.qualcomm.hardware.limelightvision.LLResultTypes.FiducialResult;
 import java.util.List;
 import java.util.Locale;
 
+
+//Go to: http://192.168.43.1:5801/ to view from control hub
 @TeleOp(name="Limelight Test 2", group=OpModeGroups.TEST)
 public class LimelightTest2 extends OpMode {
 
@@ -24,21 +26,26 @@ public class LimelightTest2 extends OpMode {
 	@Override
 	public void init() {
 		limelight = hardwareMap.get(Limelight3A.class, "limelight");
-		limelight.setPollRateHz(100); // This sets how often we ask Limelight for data (100 times per second)
+		limelight.setPollRateHz(20); // This sets how often we ask Limelight for data (100 times per second)
 		limelight.start();
-		limelight.pipelineSwitch(0);//Set to constant, pipeline 0 is set to april tag detection via web interface
+		limelight.pipelineSwitch(1);//Set to constant, pipeline 0 is set to april tag detection via web interface, motif
+		//P0: Motif
+		//P2: Red Goal
+		//P1: Blue Goal
 		imu = hardwareMap.get(IMU.class, "imu");
 		RevHubOrientationOnRobot revHubOrientationOnRobot = new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
 		imu.initialize(new IMU.Parameters(revHubOrientationOnRobot));
 	}
-
+	/*
 	@Override
 	public void start() {
 		limelight.start();
 	}
+	 */
 
 	@Override
 	public void loop(){
+		telemetry.addData("Limelight Status", limelight.getStatus().toString());
 		// First, tell Limelight which way your robot is facing
 		double robotYaw;
 		if (imu != null) {
@@ -109,6 +116,7 @@ public class LimelightTest2 extends OpMode {
 		} else {
 			telemetry.addData("Fiducials", "None");
 		}
+	telemetry.update();
 	}
 
 }
