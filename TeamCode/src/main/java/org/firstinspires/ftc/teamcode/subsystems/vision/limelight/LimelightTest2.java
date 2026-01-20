@@ -15,7 +15,7 @@ import com.qualcomm.hardware.limelightvision.LLResultTypes.FiducialResult;
 import java.util.List;
 import java.util.Locale;
 
-@TeleOp(name="Limelight Test", group=OpModeGroups.TEST)
+@TeleOp(name="Limelight Test 2", group=OpModeGroups.TEST)
 public class LimelightTest2 extends OpMode {
 
 	private Limelight3A limelight;
