@@ -15,6 +15,8 @@ import com.qualcomm.hardware.limelightvision.LLResultTypes.FiducialResult;
 import java.util.List;
 import java.util.Locale;
 
+import org.firstinspires.ftc.teamcode.utils.Limelight_Behavior;
+
 
 //Go to: http://192.168.43.1:5801/ to view from control hub
 @TeleOp(name="Limelight Test 2", group=OpModeGroups.TEST)
@@ -28,10 +30,6 @@ public class LimelightTest2 extends OpMode {
 		limelight = hardwareMap.get(Limelight3A.class, "limelight");
 		limelight.setPollRateHz(20); // This sets how often we ask Limelight for data (100 times per second)
 		limelight.start();
-		limelight.pipelineSwitch(1);//Set to constant, pipeline 0 is set to april tag detection via web interface, motif
-		//P0: Motif
-		//P2: Red Goal
-		//P1: Blue Goal
 		imu = hardwareMap.get(IMU.class, "imu");
 		RevHubOrientationOnRobot revHubOrientationOnRobot = new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
 		imu.initialize(new IMU.Parameters(revHubOrientationOnRobot));
@@ -43,9 +41,21 @@ public class LimelightTest2 extends OpMode {
 	}
 	 */
 
+	public void setPipeline(Limelight_Behavior TASK){
+		if (TASK==Limelight_Behavior.MOTIF){
+			limelight.pipelineSwitch(0);
+		}
+		else if (TASK==Limelight_Behavior.RED_GOAL){
+			limelight.pipelineSwitch(2);
+		}
+		else if (TASK==Limelight_Behavior.BLUE_GOAL){
+			limelight.pipelineSwitch(1);
+		}
+	}
+
 	@Override
 	public void loop(){
-		telemetry.addData("Limelight Status", limelight.getStatus().toString());
+		//telemetry.addData("Limelight Status", limelight.getStatus().toString());
 		// First, tell Limelight which way your robot is facing
 		double robotYaw;
 		if (imu != null) {
