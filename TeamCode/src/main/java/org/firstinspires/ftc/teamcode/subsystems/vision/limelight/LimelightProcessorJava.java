@@ -4,7 +4,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.tel
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+//import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.utils.Limelight_Behavior;
 
 
 //Go to: http://192.168.43.1:5801/ to view from control hub
-@TeleOp(name="Limelight Test 2", group=OpModeGroups.TEST)
+//@TeleOp(name="Limelight Test 2", group=OpModeGroups.TEST)
 public class LimelightProcessorJava{
 
 	private Limelight3A limelight;

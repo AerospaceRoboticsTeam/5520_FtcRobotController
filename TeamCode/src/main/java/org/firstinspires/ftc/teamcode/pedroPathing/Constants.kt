@@ -24,7 +24,9 @@ val followerConstants: FollowerConstants = FollowerConstants()
   )
   .useSecondaryTranslationalPIDF(true)
   .useSecondaryHeadingPIDF(true)
-  .useSecondaryDrivePIDF(true);
+  .useSecondaryDrivePIDF(true)
+  .forwardZeroPowerAcceleration(-25.915156);
+
 
 object Constants {
 
@@ -44,7 +46,9 @@ object Constants {
     .leftRearMotorDirection(DrivetrainConstants.LBM_DIRECTION)
     .rightFrontMotorDirection(DrivetrainConstants.RFM_DIRECTION)
     .rightRearMotorDirection(DrivetrainConstants.RBM_DIRECTION)
-    .useBrakeModeInTeleOp(true);
+    .useBrakeModeInTeleOp(true)
+    .xVelocity(45.791001687)
+    .yVelocity(-37.698816254383);
 
   /**
    * Contain constants specific to your localizer. For example, OTOS constants include
@@ -53,13 +57,13 @@ object Constants {
    * https://pedropathing.com/docs/pathing/constants</a>.
    */
   val localizerConstants: PinpointConstants = PinpointConstants()
-    .strafePodX(-15.0)
-    .forwardPodY(-9.0)
+    .strafePodX(-16.0)
+    .forwardPodY(-7.0)
     .distanceUnit(DistanceUnit.CM)
     .hardwareMapName("pinpoint")
     .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD)
     .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD)
-    .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD);
+    .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
   /**
    * Determine under what conditions a path may end.
