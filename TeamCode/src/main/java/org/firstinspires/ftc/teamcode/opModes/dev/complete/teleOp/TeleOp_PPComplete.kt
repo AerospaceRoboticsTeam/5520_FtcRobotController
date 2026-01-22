@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.utils.Team;
 import org.firstinspires.ftc.teamcode.utils.components.OpModeBase
 import org.firstinspires.ftc.teamcode.opModes.OpModeGroups;
-import org.firstinspires.ftc.teamcode.subsystems.vision.limelight.LimelightProcessor;
+import org.firstinspires.ftc.teamcode.subsystems.vision.limelight.DeprecatedLimelightProcessor;
 
 @Configurable
 @TeleOp(name = "PedroPathing Complete", group = OpModeGroups.DEV_COMPLETE)
@@ -40,12 +40,12 @@ class TeleOp_Complete : OpMode(), OpModeBase {
   private var automatedDrive = false;
   private var previousRotationPos: Pose? = null;
 
-  private lateinit var llProcessor: LimelightProcessor;
+  private lateinit var llProcessor: DeprecatedLimelightProcessor;
   private lateinit var intake: Intake;
   private lateinit var launcher: Launcher;
 
   override fun init() {
-    llProcessor = LimelightProcessor(
+    llProcessor = DeprecatedLimelightProcessor(
       this, if(gamepad1.a) Team.RED else Team.BLUE
     );
     intake = Intake(this);

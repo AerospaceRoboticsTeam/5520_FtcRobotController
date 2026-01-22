@@ -7,11 +7,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.utils.components.Subsystem
-import org.firstinspires.ftc.teamcode.subsystems.vision.limelight.LimelightProcessor;
+import org.firstinspires.ftc.teamcode.subsystems.vision.limelight.DeprecatedLimelightProcessor;
 import kotlin.math.*;
 
 /** Controller for the robot's launcher.  */
-class Launcher(private val bot: OpMode, private val tagProcessor: LimelightProcessor) : Subsystem {
+class Launcher(private val bot: OpMode, private val tagProcessor: DeprecatedLimelightProcessor) : Subsystem {
   companion object {
     /** The angle of the launcher from the ground in degrees. */
     private const val LAUNCHER_ANGLE = 45.0;
