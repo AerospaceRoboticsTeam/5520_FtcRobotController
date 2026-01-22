@@ -1,121 +1,110 @@
 package org.firstinspires.ftc.teamcode.subsystems.vision.limelight
 
 import com.qualcomm.hardware.limelightvision.LLResult
-import com.qualcomm.hardware.limelightvision.LLResultTypes
 import com.qualcomm.hardware.limelightvision.Limelight3A
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import com.qualcomm.robotcore.hardware.IMU
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D
-import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles
-import org.firstinspires.ftc.teamcode.subsystems.imu.IMUConstants
-import org.firstinspires.ftc.teamcode.utils.components.Subsystem
-import org.firstinspires.ftc.teamcode.utils.Team
 import org.firstinspires.ftc.teamcode.subsystems.vision.TagIDs
+import org.firstinspires.ftc.teamcode.utils.components.Subsystem
+import kotlin.math.hypot
 
-/** The April tag processor for the Decode season. */
-class LimelightProcessor(
-  private val opMode: OpMode,
-  private val team: Team
-): Subsystem {
-  private val imu: IMU = opMode.hardwareMap.get(
-    IMU::class.java,
-    IMUConstants.CONFIG_NAME
-  );
-  private val limelight: Limelight3A = opMode.hardwareMap.get(
-    Limelight3A::class.java,
-    "limelight"
+class LimelightProcessor(private val opMode: OpMode, private val imu: IMU) : Subsystem {
+  private val limelight = opMode.hardwareMap.get(
+    Limelight3A::class.java, "limelight"
   );
 
-  /** Stores the found artifact pattern. If one wasn't found, the value will be 0. */
-  var artifactPattern = 0;
+  private var pipeline = LimelightPipelines.MOTIF;
+  private var artifactPattern = TagIDs.NOT_FOUND;
+
+  private var latestResult: LLResult? = null;
+  private var isLatestResultValid = false;
 
   init {
-    imu.initialize(IMUConstants.PARAMETERS);
-
-    limelight.setPollRateHz(100); // This makes the Limelight computer refresh 100 times per second
-    limelight.pipelineSwitch(LimelightPipelines.APRILTAG_PIPELINE);
+    limelight.setPollRateHz(100);
+    limelight.pipelineSwitch(LimelightPipelines.MOTIF);
   }
 
-  /** Tells the Limelight computer to start. */
-  fun startLimelight() {
+  fun start() {
     limelight.start();
   }
 
-  /** Update the Limelight computer. */
   override fun update() {
-    val orientation = imu.robotYawPitchRollAngles;
-    limelight.updateRobotOrientation(orientation.getYaw(AngleUnit.DEGREES));
+    limelight.updateRobotOrientation(imu.robotYawPitchRollAngles.getYaw(AngleUnit.DEGREES));
+    latestResult = limelight.latestResult;
   }
 
-  /** Get the robot's starting position on the field via the April tags around the field. */
-  fun localizeViaTags() {}
-
-  /**
-   * Checks whether the [LLResult] is a valid April Tag result.
-   * @return `True` if the result is invalid, `false` otherwise.
-   */
-  private fun isValidAprilTagResult(result: LLResult?): Boolean {
-    return result == null || !result.isValid() || (result.pipelineType != "tagType"); // TODO: Get Apriltag type
+  fun setPipeline(index: Int) {
+    limelight.pipelineSwitch(index);
   }
 
-  /**
-   * Checks whether there are any April Tag results available.
-   * @return `True` if there are no results, `false` otherwise.
-   */
-  private fun tagResultsExist(tagResults: MutableList<LLResultTypes.FiducialResult>?): Boolean {
-    return tagResults == null || tagResults.isEmpty();
+  fun checkValidity() {
+    isLatestResultValid = latestResult != null && latestResult!!.isValid();
   }
 
-  /** Finds the artifact pattern from the obelisk using the camera's output. */
-  fun findArtifactPattern() {
-    // If the artifact pattern has not been found, attempt to get it
-    if(artifactPattern != 0) return;
-
-    val result: LLResult? = limelight.latestResult;
-    if(isValidAprilTagResult(result)) return;
-
-    val tags: MutableList<LLResultTypes.FiducialResult>? = result!!.fiducialResults;
-    if(tagResultsExist(tags)) return;
-
-    // Check the IDs of the found April Tags, setting the artifact pattern if an ID matches a pattern ID
-    for (tag in tags!!) {
-      val tagID: Int = tag.fiducialId;
-      if(tagID == TagIDs.GGP || tagID == TagIDs.PGP || tagID == TagIDs.PPG) artifactPattern = tagID;
-    }
+  fun getBotPose(): Pose3D? {
+    if(isLatestResultValid) return latestResult!!.botpose_MT2;
+    return null;
   }
 
-  /**
-   * @return A [Pose3D] containing vectors to the middle of the goal tag relative
-   * to the robot's current position if the goal tag is in sight, otherwise null.
-   */
-  fun getVectorsToGoalTag(): Pose3D? {
-    val result: LLResult? = limelight.latestResult;
-    if(isValidAprilTagResult(result)) return null;
+  fun getFiducialResults(): CalculatedFiducialResult? {
+    if(!isLatestResultValid) return null;
 
-    val tags: MutableList<LLResultTypes.FiducialResult>? = result!!.fiducialResults;
-    if(tagResultsExist(tags)) return null;
+    val fiducials = latestResult!!.fiducialResults;
+    opMode.telemetry.addData("Fiducial Count", fiducials.size);
+    if(fiducials.isEmpty()) return null;
 
-    for(tag in tags!!) {
-      val tagID: Int = tag.fiducialId;
-      if(team == Team.BLUE && tagID == TagIDs.BLUE_TAG) return tag.robotPoseTargetSpace;
-      else if(team == Team.RED && tagID == TagIDs.RED_TAG) return tag.robotPoseTargetSpace;
+    for(fiducial in fiducials) {
+      val id = fiducial.fiducialId;
+
+      val txDeg = fiducial.targetXDegrees;
+      val tyDeg = fiducial.targetYDegrees;
+
+      val poseTarget = fiducial.robotPoseTargetSpace;
+      val poseTargetPos = poseTarget.position;
+      val distance = if(poseTarget != null && poseTargetPos != null) {
+        hypot(poseTargetPos.x, poseTargetPos.y);
+      } else -1.0;
+
+      opMode.telemetry.addData(
+        "Fiducial $id", "Tx = %.2f, Ty = %.2f, Dist = %.2f", txDeg, tyDeg, distance
+      );
+
+      return CalculatedFiducialResult(
+        id, poseTargetPos.x, poseTargetPos.y, txDeg, tyDeg, distance
+      );
     }
 
     return null;
   }
 
   override fun getTelemetryData() {
-    opMode.telemetry.addData("Team", team);
-    opMode.telemetry.addData("Artifact Pattern ID", artifactPattern);
-    opMode.telemetry.addData(
-      "Artifact Pattern",
-      when(artifactPattern) {
-        TagIDs.GGP -> "GGP";
-        TagIDs.PGP -> "PGP";
-        TagIDs.PPG -> "PPG";
-        else -> "Unknown";
-      }
-    );
+    opMode.telemetry.addData("Limelight Pipeline State", when(pipeline) {
+      LimelightPipelines.MOTIF -> "MOTIF";
+      LimelightPipelines.BLUE_GOAL -> "BLUE GOAL";
+      LimelightPipelines.RED_GOAL -> "RED GOAL";
+      else -> "Unknown";
+    });
+    opMode.telemetry.addData("Artifact Pattern", when(artifactPattern) {
+      TagIDs.NOT_FOUND -> "NOT FOUND";
+      TagIDs.GPP -> "GGP";
+      TagIDs.PGP -> "PGP";
+      TagIDs.PPG -> "PPG";
+      else -> "Unknown";
+    });
+    opMode.telemetry.addData("Is Latest Result Valid", isLatestResultValid);
   }
 }
+
+data class CalculatedFiducialResult(
+  val id: Int,
+  val tx: Double,
+  val ty: Double,
+  /** How far left or right the target is (degrees). */
+  val txDeg: Double,
+  /** How far up or down the target is (degrees). */
+  val tyDeg: Double,
+  /** -1 if target position data was null. */
+  val distance: Double
+);
