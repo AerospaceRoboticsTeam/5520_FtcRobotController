@@ -2,8 +2,11 @@ package org.firstinspires.ftc.teamcode.subsystems.vision
 
 /** Contains constants for April tag IDs used on the Decode field. */
 object TagIDs {
+  /** The */
+  const val NOT_FOUND = 0;
+
   /** Tag ID for the Green Purple Purple pattern. */
-  const val GGP = 21;
+  const val GPP = 21;
   /** Tag ID for the Purple Green Purple pattern. */
   const val PGP = 22;
   /** Tag ID for the Purple Purple Green pattern. */
