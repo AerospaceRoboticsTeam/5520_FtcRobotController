@@ -3,17 +3,17 @@ package org.firstinspires.ftc.teamcode.opModes.dev.basic.teleOp
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.opModes.OpModeGroups
-import org.firstinspires.ftc.teamcode.subsystems.drivetrain.RudimentaryMecanumDrive
+import org.firstinspires.ftc.teamcode.subsystems.drivetrain.RudimentaryRobotCentricDrivetrain
 import org.firstinspires.ftc.teamcode.utils.components.OpModeBase
 
-@TeleOp(name = "Basic Mecanum", group = OpModeGroups.BASIC)
-class TeleOp_Basic : LinearOpMode(), OpModeBase {
-  private lateinit var mecanumDrive: RudimentaryMecanumDrive;
+@TeleOp(name = "Basic Robot-Centric Mecanum", group = OpModeGroups.BASIC)
+class TeleOp_BasicRobotCentric : LinearOpMode(), OpModeBase {
+  private lateinit var mecanumDrive: RudimentaryRobotCentricDrivetrain;
 
   @Throws(InterruptedException::class)
   override fun runOpMode() {
     // Initialize mechanisms
-    mecanumDrive = RudimentaryMecanumDrive(this);
+    mecanumDrive = RudimentaryRobotCentricDrivetrain(this);
 
     // Wait for Op mode to start and cancel startup if stopped
     waitForStart()
