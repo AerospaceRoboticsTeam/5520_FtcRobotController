@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants
 import org.firstinspires.ftc.teamcode.utils.components.Subsystem
 
-class PPMecanumDrive(private val opMode: OpMode, startPos: Pose) : Subsystem {
+class PPDrivetrain(private val opMode: OpMode, startPos: Pose) : Subsystem {
   companion object {
     private const val BASE_MULTIPLIER = 0.5;
     private const val BOOST_MULTIPLIER = 1.0;
@@ -42,7 +42,7 @@ class PPMecanumDrive(private val opMode: OpMode, startPos: Pose) : Subsystem {
     // Provide new input values to pedro pathing for TeleOp driving
     follower.setTeleOpDrive(
       -gamepad.left_stick_y * multiplier,
-      -gamepad.left_stick_x * multiplier,//Switched Sign, - to pos
+      gamepad.left_stick_x * multiplier,
       -gamepad.right_stick_x * multiplier,
       isRobotCentric
     );

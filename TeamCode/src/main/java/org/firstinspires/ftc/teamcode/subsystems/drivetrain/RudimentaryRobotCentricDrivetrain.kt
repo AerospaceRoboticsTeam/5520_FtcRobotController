@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.utils.components.Subsystem
 import kotlin.math.*;
 
 /** A mecanum drive train for driving the robot.  */
-class RudimentaryMecanumDrive(
+class RudimentaryRobotCentricDrivetrain(
   /** Linear Op Mode instance. */
   private val opMode: OpMode
 ) : Subsystem {

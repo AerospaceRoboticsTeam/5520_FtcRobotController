@@ -7,12 +7,12 @@ import org.firstinspires.ftc.teamcode.season.Intake
 import org.firstinspires.ftc.teamcode.season.launcher.LauncherBasic
 import org.firstinspires.ftc.teamcode.season.LightController
 import org.firstinspires.ftc.teamcode.season.Magazine
-import org.firstinspires.ftc.teamcode.subsystems.drivetrain.RudimentaryMecanumDrive
+import org.firstinspires.ftc.teamcode.subsystems.drivetrain.RudimentaryRobotCentricDrivetrain
 import org.firstinspires.ftc.teamcode.utils.components.OpModeBase
 
 @TeleOp(name = "Basic Complete", group = OpModeGroups.DEV_COMPLETE)
 class TeleOp_BasicComplete : LinearOpMode(), OpModeBase {
-  private lateinit var mecanumDrive: RudimentaryMecanumDrive;
+  private lateinit var mecanumDrive: RudimentaryRobotCentricDrivetrain;
   private lateinit var intake: Intake;
   private lateinit var magazine: Magazine;
   private lateinit var launcher: LauncherBasic;
@@ -20,10 +20,10 @@ class TeleOp_BasicComplete : LinearOpMode(), OpModeBase {
   @Throws(InterruptedException::class)
   override fun runOpMode() {
     // Initialize mechanisms
-    mecanumDrive = RudimentaryMecanumDrive(this);
+    mecanumDrive = RudimentaryRobotCentricDrivetrain(this);
     intake = Intake(this);
     magazine = Magazine(this);
-    launcher = LauncherBasic(this, LightController(this));
+    launcher = LauncherBasic(this, LightController(this, "distanceLight"));
 
     // Wait for Op mode to start and cancel startup if stopped
     waitForStart();

@@ -6,13 +6,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.opModes.OpModeGroups;
 import org.firstinspires.ftc.teamcode.season.launcher.LauncherBasic;
 import org.firstinspires.ftc.teamcode.season.LightController;
-import org.firstinspires.ftc.teamcode.subsystems.drivetrain.RudimentaryMecanumDrive;
+import org.firstinspires.ftc.teamcode.subsystems.drivetrain.RudimentaryRobotCentricDrivetrain;
 import org.firstinspires.ftc.teamcode.season.MagMotor;
 import org.firstinspires.ftc.teamcode.season.Intake;
 
 @TeleOp(name = "Dev 4", group = OpModeGroups.DEV)
 public class TeleOp_Dev4 extends LinearOpMode {
-	private RudimentaryMecanumDrive mecanumDrive;
+	private RudimentaryRobotCentricDrivetrain mecanumDrive;
 	private LauncherBasic launcher;
 	private MagMotor magMotor;
 	private Intake intake;
@@ -22,9 +22,9 @@ public class TeleOp_Dev4 extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
 		// Initialize mechanisms
-		mecanumDrive = new RudimentaryMecanumDrive(this);
+		mecanumDrive = new RudimentaryRobotCentricDrivetrain(this);
 		intake = new Intake(this);
-		launcher = new LauncherBasic(this, new LightController(this));
+		launcher = new LauncherBasic(this, new LightController(this, ""));
 		magMotor = new MagMotor(this);
 
 		// Wait for Op mode to start and cancel startup if stopped

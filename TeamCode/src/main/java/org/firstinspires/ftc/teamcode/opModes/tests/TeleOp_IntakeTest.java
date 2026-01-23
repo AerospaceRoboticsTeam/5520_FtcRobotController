@@ -5,18 +5,18 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.opModes.OpModeGroups;
 import org.firstinspires.ftc.teamcode.season.Intake;
-import org.firstinspires.ftc.teamcode.subsystems.drivetrain.RudimentaryMecanumDrive;
+import org.firstinspires.ftc.teamcode.subsystems.drivetrain.RudimentaryRobotCentricDrivetrain;
 import org.firstinspires.ftc.teamcode.utils.components.OpModeBase;
 
 @TeleOp(name = "Intake Test", group = OpModeGroups.TEST)
 public class TeleOp_IntakeTest extends LinearOpMode implements OpModeBase {
-	private RudimentaryMecanumDrive mecanumDrive;
+	private RudimentaryRobotCentricDrivetrain mecanumDrive;
 	private Intake intake;
 
 	@Override
 	public void runOpMode() throws InterruptedException {
 		// Initialize mechanisms
-		mecanumDrive = new RudimentaryMecanumDrive(this);
+		mecanumDrive = new RudimentaryRobotCentricDrivetrain(this);
 		intake = new Intake(this);
 
 		// Wait for Op mode to start and cancel startup if stopped
