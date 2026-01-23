@@ -17,17 +17,19 @@ import org.firstinspires.ftc.teamcode.utils.components.OpModeBase
 @Autonomous(name = "Competition Auto", group = OpModeGroups.COMPETITION)
 class Auto_Comp : OpMode(), OpModeBase {
   private lateinit var follower: Follower;
-  private lateinit var lightController: LightController;
+  private lateinit var distLight: LightController;
+  private lateinit var aimLight: LightController;
   private lateinit var intake: Intake;
   private lateinit var magazine: Magazine;
   private lateinit var launcher: LauncherBasic;
 
   override fun init() {
     follower = Constants.createFollower(hardwareMap);
-    lightController = LightController(this);
+    distLight = LightController(this, "distanceLight");
+    aimLight = LightController(this, "aimLight");
     intake = Intake(this);
     magazine = Magazine(this);
-    launcher = LauncherBasic(this, lightController);
+    launcher = LauncherBasic(this, distLight);
 
     follower.setStartingPose(Pose(0.0, 0.0, 0.0));
   }
@@ -55,7 +57,8 @@ class Auto_Comp : OpMode(), OpModeBase {
     telemetry.addData("Y Pos", follower.pose.y);
     telemetry.addData("Heading", Math.toDegrees(follower.pose.heading));
     telemetry.addData("Target Pos", targetPoseCords);
-    lightController.getTelemetryData();
+    distLight.getTelemetryData();
+    aimLight.getTelemetryData();
     intake.getTelemetryData();
     magazine.getTelemetryData();
     launcher.getTelemetryData();
