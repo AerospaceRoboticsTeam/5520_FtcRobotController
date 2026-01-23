@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.subsystems.vision.limelight.DeprecatedLime
 
 @Configurable
 @TeleOp(name = "PedroPathing Complete", group = OpModeGroups.DEV_COMPLETE)
-class TeleOp_Complete : OpMode(), OpModeBase {
+class TeleOp_PPComplete : OpMode(), OpModeBase {
   companion object {
     private const val BASE_MULTIPLIER = 0.5;
     private const val BOOST_MULTIPLIER = 1.0;
@@ -79,7 +79,7 @@ class TeleOp_Complete : OpMode(), OpModeBase {
         // Provide new input values to pedro pathing for TeleOp driving
         follower.setTeleOpDrive(
           -gamepad1.left_stick_y * multiplier,
-          -gamepad1.left_stick_x * multiplier,
+          gamepad1.left_stick_x * multiplier,
           -gamepad1.right_stick_x * multiplier,
           true
         );
