@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.pedroPathing
 
 import com.pedropathing.control.FilteredPIDFCoefficients
+import com.pedropathing.control.PIDFCoefficients
 import com.pedropathing.follower.Follower
 import com.pedropathing.follower.FollowerConstants
 import com.pedropathing.ftc.FollowerBuilder
@@ -12,23 +13,28 @@ import com.qualcomm.robotcore.hardware.HardwareMap
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
 import org.firstinspires.ftc.teamcode.subsystems.drivetrain.DrivetrainConstants
 
-/**
- * Consist of values from the automatic, PID, and centripetal tuners.
- * <p>For more details, see <a href="https://pedropathing.com/docs/pathing/constants">
- * https://pedropathing.com/docs/pathing/constants</a>.
- */
-val followerConstants: FollowerConstants = FollowerConstants()
-  .mass(14.5) // TODO: Set this to the robot's weight when building is complete in KG
-  .drivePIDFCoefficients(
-    FilteredPIDFCoefficients(1.0, 1.0, 1.0, 1.0, 1.0)
-  )
-  .useSecondaryTranslationalPIDF(true)
-  .useSecondaryHeadingPIDF(true)
-  .useSecondaryDrivePIDF(true)
-  .forwardZeroPowerAcceleration(-25.915156);
-
-
 object Constants {
+  /**
+   * Consist of values from the automatic, PID, and centripetal tuners.
+   * <p>For more details, see <a href="https://pedropathing.com/docs/pathing/constants">
+   * https://pedropathing.com/docs/pathing/constants</a>.
+   */
+  val followerConstants: FollowerConstants = FollowerConstants()
+    .mass(16.5) // TODO: Set this to the robot's weight when building is complete in KG
+    .forwardZeroPowerAcceleration(-25.915156)
+    .lateralZeroPowerAcceleration(-67.34249184408006)
+    .translationalPIDFCoefficients(
+      PIDFCoefficients(0.1, 0.1, 0.1, 0.1)
+    )
+    .translationalPIDFSwitch(4.0)
+    .headingPIDFCoefficients(
+      PIDFCoefficients(0.1, 0.1, 0.1, 0.1)
+    )
+    .drivePIDFCoefficients(
+      FilteredPIDFCoefficients(0.1, 0.1, 0.1, 0.1, 0.1)
+    )
+    .drivePIDFSwitch(15.0)
+    .centripetalScaling(0.0005);
 
   /**
    * Contain constants specific to your drivetrain type. For example, mecanum drivetrain
@@ -48,7 +54,7 @@ object Constants {
     .rightRearMotorDirection(DrivetrainConstants.RBM_DIRECTION)
     .useBrakeModeInTeleOp(true)
     .xVelocity(45.791001687)
-    .yVelocity(-37.698816254383);
+    .yVelocity(37.698816254383);
 
   /**
    * Contain constants specific to your localizer. For example, OTOS constants include
