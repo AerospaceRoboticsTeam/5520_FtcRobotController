@@ -4,10 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.utils.components.Subsystem
 
-class LightController(private val opMode: OpMode) : Subsystem {
+class LightController(private val opMode: OpMode, private val lightName: String) : Subsystem {
   private val light: Servo = opMode.hardwareMap.get(
     Servo::class.java,
-    "indicatorLight"
+    lightName
   );
   private val state: LightState = LightState();
 
@@ -23,7 +23,7 @@ class LightController(private val opMode: OpMode) : Subsystem {
   }
 
   override fun getTelemetryData() {
-    opMode.telemetry.addData("Light Mode/State", state.modeState);
+    opMode.telemetry.addData("${lightName.replaceFirstChar { it.titlecase() }} Mode/State", state.modeState);
   }
 }
 
