@@ -42,7 +42,7 @@ class PPDrivetrain(private val opMode: OpMode, startPos: Pose) : Subsystem {
     // Provide new input values to pedro pathing for TeleOp driving
     follower.setTeleOpDrive(
       -gamepad.left_stick_y * multiplier,
-      gamepad.left_stick_x * multiplier,
+      -gamepad.left_stick_x * multiplier,
       -gamepad.right_stick_x * multiplier,
       isRobotCentric
     );
