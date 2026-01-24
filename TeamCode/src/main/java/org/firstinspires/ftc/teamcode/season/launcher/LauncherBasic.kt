@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.utils.components.Subsystem
 /** Controller for the robot's launcher. */
 class LauncherBasic(
   private val opMode: OpMode,
-  private val lightController: LightController
+  private val distLight: LightController
 ) : Subsystem {
   companion object {
     private var SPIN_SENSITIVITY = 0.2;
@@ -49,7 +49,7 @@ class LauncherBasic(
 
     leftMotor.direction = Direction.REVERSE;
     rightMotor.direction = Direction.FORWARD;
-    lightController.setMode(LightMode.ORANGE);
+    distLight.setMode(LightMode.ORANGE);
   }
 
   override fun update() {
@@ -57,12 +57,12 @@ class LauncherBasic(
     if(gamepad.squareWasPressed()) {
       launcherStatus = when(launcherStatus) {
         LauncherBasicStatus.SHORT -> {
-          lightController.setMode(LightMode.AQUA);
+          distLight.setMode(LightMode.AQUA);
           basePowerValue = LONG_DISTANCE_POWER;
           LauncherBasicStatus.LONG;
         }
         LauncherBasicStatus.LONG -> {
-          lightController.setMode(LightMode.ORANGE);
+          distLight.setMode(LightMode.ORANGE);
           basePowerValue = SHORT_DISTANCE_POWER;
           LauncherBasicStatus.SHORT;
         }
