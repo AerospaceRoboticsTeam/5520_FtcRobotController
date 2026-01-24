@@ -15,7 +15,8 @@ class LimelightProcessor(private val opMode: OpMode, private val imu: IMU) : Sub
     Limelight3A::class.java, "limelight"
   );
 
-  private var pipeline = LimelightPipelines.MOTIF;
+  var pipeline = LimelightPipelines.MOTIF
+    private set;
   private var artifactPattern = TagIDs.NOT_FOUND;
 
   private var latestResult: LLResult? = null;
