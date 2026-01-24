@@ -54,7 +54,7 @@ object Constants {
     .rightRearMotorDirection(DrivetrainConstants.RBM_DIRECTION)
     .useBrakeModeInTeleOp(true)
     .xVelocity(45.791001687)
-    .yVelocity(37.698816254383);
+    .yVelocity(38.00510268324003);
 
   /**
    * Contain constants specific to your localizer. For example, OTOS constants include
