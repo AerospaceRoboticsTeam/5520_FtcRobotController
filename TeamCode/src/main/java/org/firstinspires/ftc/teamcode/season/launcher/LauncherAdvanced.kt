@@ -118,12 +118,13 @@ class LauncherAdvanced(
     if(
       limelightProcessor.pipeline != LimelightPipelines.BLUE_GOAL &&
       limelightProcessor.pipeline != LimelightPipelines.RED_GOAL
-    ) return;
+    ) return aimLight.setMode(LightMode.RED);
 
     val goalTargetResult = limelightProcessor.getFiducialResults();
-    if(goalTargetResult == null) return;
+    if(goalTargetResult == null) return aimLight.setMode(LightMode.RED);
 
-    val isAligned = goalTargetResult.txDeg > -0.1 && goalTargetResult.txDeg < 0.1;
+    val isAligned = goalTargetResult.txDeg > -4 && goalTargetResult.txDeg < 4;
+    opMode.telemetry.addData("Is Robot Aligned With Goal", isAligned);
     aimLight.setMode(if(isAligned) LightMode.GREEN else LightMode.RED);
   }
 
