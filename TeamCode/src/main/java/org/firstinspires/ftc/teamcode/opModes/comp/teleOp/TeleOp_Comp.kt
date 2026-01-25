@@ -8,9 +8,9 @@ import org.firstinspires.ftc.teamcode.season.Intake
 import org.firstinspires.ftc.teamcode.season.LightController
 import org.firstinspires.ftc.teamcode.season.Magazine
 import org.firstinspires.ftc.teamcode.season.launcher.LauncherAdvanced
-import org.firstinspires.ftc.teamcode.season.launcher.LauncherBasic
 import org.firstinspires.ftc.teamcode.subsystems.drivetrain.PPDrivetrain
 import org.firstinspires.ftc.teamcode.subsystems.imu.IMUConstants
+import org.firstinspires.ftc.teamcode.subsystems.vision.limelight.LimelightPipelines
 import org.firstinspires.ftc.teamcode.subsystems.vision.limelight.LimelightProcessor
 import org.firstinspires.ftc.teamcode.utils.components.OpModeBase
 
@@ -32,6 +32,7 @@ class TeleOp_Comp : OpMode(), OpModeBase {
 
     mecanumDrive = PPDrivetrain(this);
     limelightProcessor = LimelightProcessor(this, imu);
+
     distLight = LightController(this, "distanceLight");
     aimLight = LightController(this, "aimLight");
     intake = Intake(this);
@@ -41,6 +42,7 @@ class TeleOp_Comp : OpMode(), OpModeBase {
 
   override fun start() {
     mecanumDrive.start();
+    limelightProcessor.setPipeline(if(gamepad1.triangle) LimelightPipelines.RED_GOAL else LimelightPipelines.BLUE_GOAL);
   }
 
   override fun loop() {
