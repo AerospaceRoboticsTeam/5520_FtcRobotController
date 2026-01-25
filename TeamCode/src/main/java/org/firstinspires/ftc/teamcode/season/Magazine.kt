@@ -54,17 +54,17 @@ class Magazine(private val opMode: OpMode) : Subsystem {
   }
 
   fun moveUp() {
-    upperServo.power = POWER / 2;
+    upperServo.power = POWER;
     lowerServo.power = POWER;
   }
 
   fun moveDown() {
-    upperServo.power = -POWER / 2;
+    upperServo.power = -POWER;
     lowerServo.power = -POWER;
   }
 
   fun moveUpUpper() {
-    upperServo.power = POWER / 2;
+    upperServo.power = POWER;
   }
 
   fun moveUpLower() {
@@ -72,7 +72,7 @@ class Magazine(private val opMode: OpMode) : Subsystem {
   }
 
   fun moveDownUpper() {
-    upperServo.power = -POWER / 2;
+    upperServo.power = -POWER;
   }
 
   fun moveDownLower() {
