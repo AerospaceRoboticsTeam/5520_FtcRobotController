@@ -24,16 +24,16 @@ object Constants {
     .forwardZeroPowerAcceleration(-25.915156)
     .lateralZeroPowerAcceleration(-67.34249184408006)
     .translationalPIDFCoefficients(
-      PIDFCoefficients(0.1, 0.1, 0.1, 0.1)
+      PIDFCoefficients(0.01, 0.1, 0.1, 0.1)
     )
-    .translationalPIDFSwitch(4.0)
+    //.translationalPIDFSwitch(4.0)
     .headingPIDFCoefficients(
-      PIDFCoefficients(0.1, 0.1, 0.1, 0.1)
+      PIDFCoefficients(0.01, 0.1, 0.1, 0.1)
     )
     .drivePIDFCoefficients(
-      FilteredPIDFCoefficients(0.1, 0.1, 0.1, 0.1, 0.1)
+      FilteredPIDFCoefficients(0.01, 0.1, 0.1, 0.1, 0.1)
     )
-    .drivePIDFSwitch(15.0)
+    //.drivePIDFSwitch(15.0)
     .centripetalScaling(0.0005);
 
   /**
