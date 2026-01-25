@@ -37,6 +37,7 @@ class LimelightProcessor(private val opMode: OpMode, private val imu: IMU) : Sub
   }
 
   fun setPipeline(index: Int) {
+    pipeline = index;
     limelight.pipelineSwitch(index);
   }
 
@@ -81,12 +82,13 @@ class LimelightProcessor(private val opMode: OpMode, private val imu: IMU) : Sub
   }
 
   override fun getTelemetryData() {
-    opMode.telemetry.addData("Limelight Pipeline State", when(pipeline) {
+    opMode.telemetry.addData("Expected Limelight Pipeline State", when(pipeline) {
       LimelightPipelines.MOTIF -> "MOTIF";
       LimelightPipelines.BLUE_GOAL -> "BLUE GOAL";
       LimelightPipelines.RED_GOAL -> "RED GOAL";
       else -> "Unknown";
     });
+    opMode.telemetry.addData("Current Limelight Status", limelight.status);
     opMode.telemetry.addData("Artifact Pattern", when(artifactPattern) {
       TagIDs.NOT_FOUND -> "NOT FOUND";
       TagIDs.GPP -> "GGP";
