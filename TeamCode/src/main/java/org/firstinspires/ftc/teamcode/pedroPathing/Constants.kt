@@ -24,14 +24,14 @@ object Constants {
     .forwardZeroPowerAcceleration(-25.915156)
     .lateralZeroPowerAcceleration(-67.34249184408006)
     .translationalPIDFCoefficients(
-      PIDFCoefficients(0.01, 0.1, 0.1, 0.1)
+      PIDFCoefficients(0.0565, 0.0, 0.002, 0.01995)
     )
     //.translationalPIDFSwitch(4.0)
     .headingPIDFCoefficients(
-      PIDFCoefficients(0.01, 0.1, 0.1, 0.1)
+      PIDFCoefficients(0.475, 0.0, 0.002, 0.05725)
     )
     .drivePIDFCoefficients(
-      FilteredPIDFCoefficients(0.01, 0.1, 0.1, 0.1, 0.1)
+      FilteredPIDFCoefficients(0.08, 0.0, 0.00675, 0.6, 0.0225)
     )
     //.drivePIDFSwitch(15.0)
     .centripetalScaling(0.0005);
@@ -79,7 +79,7 @@ object Constants {
   val pathConstraints: PathConstraints = PathConstraints(
     0.99,
     100.0,
-    1.0,
+    1.325,
     1.0
   );
 
