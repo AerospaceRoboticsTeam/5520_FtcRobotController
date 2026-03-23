@@ -24,7 +24,7 @@ object Constants {
     .forwardZeroPowerAcceleration(-25.915156)
     .lateralZeroPowerAcceleration(-67.34249184408006)
     .translationalPIDFCoefficients(
-      PIDFCoefficients(0.01, 0.1, 0.1, 0.1)
+      PIDFCoefficients(0.0100,.1, 0.01, 0.1)
     )
     //.translationalPIDFSwitch(4.0)
     .headingPIDFCoefficients(

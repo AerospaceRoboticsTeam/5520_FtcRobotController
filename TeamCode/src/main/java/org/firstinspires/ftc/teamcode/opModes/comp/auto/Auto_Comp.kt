@@ -23,6 +23,8 @@ class Auto_Comp : OpMode(), OpModeBase {
   private lateinit var magazine: Magazine;
   private lateinit var launcher: LauncherBasic;
 
+  private var startTime = 0L;
+
   override fun init() {
     follower = Constants.createFollower(hardwareMap);
     distLight = LightController(this, "distanceLight");
@@ -35,6 +37,7 @@ class Auto_Comp : OpMode(), OpModeBase {
   }
 
   override fun start() {
+    startTime=System.currentTimeMillis();
     val forwardPath = Path(BezierLine(
       Pose(0.0, 0.0, 0.0),
       Pose(39.37, 0.0, 0.0)
@@ -43,9 +46,32 @@ class Auto_Comp : OpMode(), OpModeBase {
     follower.followPath(forwardPath);
   }
 
+  fun launchSequence(){
+    var launchSeqStart = System.currentTimeMillis();
+    launcher.setPower(0.325, 0.325);
+    //Add Sleep
+    magazine.moveUpLower();
+    magazine.moveUpUpper();
+    while (true){
+      var currentTime = System.currentTimeMillis();
+      var deltaT = currentTime-launchSeqStart;
+      if (deltaT>1000){
+        break;
+      } else {
+        continue;
+      }
+    }
+    //Add Sleep
+    //Stop Everything
+    magazine.stop();
+    launcher.stop();
+  }
   override fun loop() {
     follower.update();
 
+    if (!follower.isBusy()){
+      launchSequence();
+    }
     updateTelemetryData();
   }
 

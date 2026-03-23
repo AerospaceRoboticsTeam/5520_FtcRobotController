@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.utils.components.Subsystem
 class Magazine(private val opMode: OpMode) : Subsystem {
   companion object {
     var POWER = 0.75;
+    //Switch both servos to super speed, and then increase power for higher throughput
 
     var UPPER_SERVO_DIRECTION = Direction.FORWARD;
     var LOWER_SERVO_DIRECTION = Direction.REVERSE;

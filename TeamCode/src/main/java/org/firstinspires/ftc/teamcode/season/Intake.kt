@@ -10,6 +10,10 @@ import kotlin.math.abs
 
 @Configurable
 /** Controller for intake located at the front of the robot.  */
+
+//Add a beam break sensor
+//Once beam is broken attempt to index ball by checking if the other two spots are available
+//Check if other spots are available using beam break sensors there, as well as distance sensors
 class Intake(private val opMode: OpMode) : Subsystem {
   companion object {
     private var IN_POWER = 1.0;
