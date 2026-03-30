@@ -12,4 +12,4 @@ sealed class Input : Event();
 sealed class GamePad : Input();
 
 // Gamepad events
-class AButtonPressed : GamePad();
+class AButtonPressed() : GamePad();
