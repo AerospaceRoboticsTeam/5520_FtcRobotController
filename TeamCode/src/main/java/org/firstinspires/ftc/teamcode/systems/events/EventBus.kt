@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.events
+package org.firstinspires.ftc.teamcode.systems.events
 
 import kotlin.reflect.KClass
 
